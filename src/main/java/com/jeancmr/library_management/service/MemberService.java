@@ -41,10 +41,7 @@ public class MemberService implements IMemberService{
     @Override
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
-        MemberProfile memberFound = memberRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Member not found"));
-
-        return memberMapper.toResponseDto(memberFound);
+        return memberMapper.toResponseDto(findEntityById(id));
     }
 
     @Override
@@ -72,8 +69,8 @@ public class MemberService implements IMemberService{
     @Override
     @Transactional
     public MemberResponseDto update(Long id, UserUpdateRequestDto request) {
-        User existingUser = userRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Member not found"));
+        User existingUser = memberRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Member not found")).getUser();
 
         userMapper.updateUser(request, existingUser);
         memberMapper.updateMemberFromDto(request, existingUser.getMemberProfile());
@@ -90,5 +87,10 @@ public class MemberService implements IMemberService{
             throw new RuntimeException("Member not found");
         }
         userRepository.deleteById(id);
+    }
+
+    private MemberProfile findEntityById(Long id){
+        return memberRepository.findById(id).orElseThrow(()->
+                new RuntimeException("Member not found"));
     }
 }

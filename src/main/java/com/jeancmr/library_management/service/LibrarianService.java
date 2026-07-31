@@ -67,8 +67,8 @@ public class LibrarianService implements ILibrarianService{
     @Override
     @Transactional
     public LibrarianResponseDto update(Long id, UserUpdateRequestDto userUpdateRequestDto) {
-        User existingUser = userRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Member not found"));
+        User existingUser = librarianRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Librarian not found")).getUser();
 
         userMapper.updateUser(userUpdateRequestDto, existingUser);
         librarianMapper.updateLibrarianFromDto(userUpdateRequestDto, existingUser.getLibrarianProfile());
