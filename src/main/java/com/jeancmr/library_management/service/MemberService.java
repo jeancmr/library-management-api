@@ -4,7 +4,7 @@ import com.jeancmr.library_management.domain.MemberProfile;
 import com.jeancmr.library_management.domain.User;
 import com.jeancmr.library_management.dto.MemberCreateRequestDto;
 import com.jeancmr.library_management.dto.MemberResponseDto;
-import com.jeancmr.library_management.dto.MemberUpdateRequestDto;
+import com.jeancmr.library_management.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.enums.MemberStatus;
 import com.jeancmr.library_management.enums.Role;
 import com.jeancmr.library_management.mapper.MemberProfileMapper;
@@ -71,16 +71,14 @@ public class MemberService implements IMemberService{
 
     @Override
     @Transactional
-    public MemberResponseDto update(Long id, MemberUpdateRequestDto request) {
+    public MemberResponseDto update(Long id, UserUpdateRequestDto request) {
         User existingUser = userRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Member not found"));
 
-        userMapper.updateUserFromMemberDto(request, existingUser);
+        userMapper.updateUser(request, existingUser);
         memberMapper.updateMemberFromDto(request, existingUser.getMemberProfile());
 
         User updatedUser = userRepository.save(existingUser);
-        System.out.println(updatedUser.getId());
-        System.out.println(updatedUser.getFirstName());
 
         return memberMapper.toResponseDto(updatedUser.getMemberProfile());
     }

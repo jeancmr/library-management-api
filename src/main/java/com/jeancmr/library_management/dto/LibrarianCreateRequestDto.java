@@ -1,18 +1,21 @@
 package com.jeancmr.library_management.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
-
-@Getter
-@Setter
-public class MemberUpdateRequestDto {
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class LibrarianCreateRequestDto {
     private String firstName;
     private String secondName;
     private String firstSurname;
     private String secondSurname;
     private String email;
+    private String password;
     private LocalDate birthDate;
 }

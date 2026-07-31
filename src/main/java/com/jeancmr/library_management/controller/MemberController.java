@@ -2,7 +2,7 @@ package com.jeancmr.library_management.controller;
 
 import com.jeancmr.library_management.dto.MemberCreateRequestDto;
 import com.jeancmr.library_management.dto.MemberResponseDto;
-import com.jeancmr.library_management.dto.MemberUpdateRequestDto;
+import com.jeancmr.library_management.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.service.IMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class MemberController {
 
     @PutMapping("/{id}")
     public ResponseEntity<MemberResponseDto> update(@PathVariable Long id,
-                                                    @RequestBody MemberUpdateRequestDto requestDto) {
+                                                    @RequestBody UserUpdateRequestDto requestDto) {
         return ResponseEntity.ok(memberService.update(id, requestDto));
     }
 

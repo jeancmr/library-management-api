@@ -64,4 +64,12 @@ public class User {
             memberProfile.setUser(this);
         }
     }
+
+    public void assignLibrarianProfile(LibrarianProfile librarianProfile) {
+        this.librarianProfile = librarianProfile;
+
+        if (librarianProfile != null) {
+            librarianProfile.setUser(this);
+        }
+    }
 }

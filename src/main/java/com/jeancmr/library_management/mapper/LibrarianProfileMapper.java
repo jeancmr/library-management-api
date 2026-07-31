@@ -1,18 +1,17 @@
 package com.jeancmr.library_management.mapper;
 
+import com.jeancmr.library_management.domain.LibrarianProfile;
 import com.jeancmr.library_management.domain.MemberProfile;
-import com.jeancmr.library_management.dto.MemberCreateRequestDto;
-import com.jeancmr.library_management.dto.MemberResponseDto;
-import com.jeancmr.library_management.dto.UserUpdateRequestDto;
+import com.jeancmr.library_management.dto.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
-public interface MemberProfileMapper {
+public interface LibrarianProfileMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
-    MemberProfile toEntity(MemberCreateRequestDto dto);
+    LibrarianProfile toEntity(LibrarianCreateRequestDto dto);
 
     @Mapping(target = "firstName", source = "user.firstName")
     @Mapping(target = "secondName", source = "user.secondName")
@@ -20,10 +19,10 @@ public interface MemberProfileMapper {
     @Mapping(target = "secondSurname", source = "user.secondSurname")
     @Mapping(target = "email", source = "user.email")
     @Mapping(target = "birthDate", source = "user.birthDate")
-    MemberResponseDto toResponseDto(MemberProfile memberProfile);
+    LibrarianResponseDto toResponseDto(LibrarianProfile librarianProfile);
 
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
-    void updateMemberFromDto(UserUpdateRequestDto dto, @MappingTarget MemberProfile memberProfile);
+    void updateLibrarianFromDto(UserUpdateRequestDto dto, @MappingTarget LibrarianProfile librarianProfile);
 }
