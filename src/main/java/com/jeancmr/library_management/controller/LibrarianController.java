@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.controller;
 
-import com.jeancmr.library_management.dto.LibrarianCreateRequestDto;
 import com.jeancmr.library_management.dto.LibrarianResponseDto;
+import com.jeancmr.library_management.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.service.ILibrarianService;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class LibrarianController {
     }
 
     @PostMapping
-    public ResponseEntity<LibrarianResponseDto> save(@Valid @RequestBody LibrarianCreateRequestDto requestDto) {
+    public ResponseEntity<LibrarianResponseDto> save(@Valid @RequestBody UserCreateRequestDto requestDto) {
         return new ResponseEntity<>(librarianService.save(requestDto), HttpStatus.CREATED);
     }
 

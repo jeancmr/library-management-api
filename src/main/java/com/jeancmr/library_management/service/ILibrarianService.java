@@ -9,7 +9,7 @@ import java.util.List;
 public interface ILibrarianService {
     List<LibrarianResponseDto> findAll();
     LibrarianResponseDto findById(Long id);
-    LibrarianResponseDto save(LibrarianCreateRequestDto librarianCreateRequestDto);
+    LibrarianResponseDto save(UserCreateRequestDto userCreateRequestDto);
     LibrarianResponseDto update(Long id, UserUpdateRequestDto userUpdateRequestDto);
     void deleteById(Long id);
 }

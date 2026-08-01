@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.controller;
 
-import com.jeancmr.library_management.dto.MemberCreateRequestDto;
 import com.jeancmr.library_management.dto.MemberResponseDto;
+import com.jeancmr.library_management.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.service.IMemberService;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity<MemberResponseDto> save(@Valid @RequestBody MemberCreateRequestDto requestDto) {
+    public ResponseEntity<MemberResponseDto> save(@Valid @RequestBody UserCreateRequestDto requestDto) {
         return new ResponseEntity<>(memberService.save(requestDto), HttpStatus.CREATED);
     }
 

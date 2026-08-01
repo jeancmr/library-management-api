@@ -1,7 +1,5 @@
 package com.jeancmr.library_management.dto;
 
-import com.jeancmr.library_management.enums.MemberStatus;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +16,6 @@ public class MemberResponseDto {
     private String secondSurname;
     private String email;
     private LocalDate birthDate;
-    private MemberStatus status;
     private LocalDate membershipDate;
     private int borrowLimit;
 }

@@ -1,8 +1,8 @@
 package com.jeancmr.library_management.mapper;
 
 import com.jeancmr.library_management.domain.MemberProfile;
-import com.jeancmr.library_management.dto.MemberCreateRequestDto;
 import com.jeancmr.library_management.dto.MemberResponseDto;
+import com.jeancmr.library_management.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.dto.UserUpdateRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,7 +12,7 @@ import org.mapstruct.MappingTarget;
 public interface MemberProfileMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
-    MemberProfile toEntity(MemberCreateRequestDto dto);
+    MemberProfile toEntity(UserCreateRequestDto dto);
 
     @Mapping(target = "firstName", source = "user.firstName")
     @Mapping(target = "secondName", source = "user.secondName")

@@ -2,8 +2,8 @@ package com.jeancmr.library_management.service;
 
 import com.jeancmr.library_management.domain.MemberProfile;
 import com.jeancmr.library_management.domain.User;
-import com.jeancmr.library_management.dto.MemberCreateRequestDto;
 import com.jeancmr.library_management.dto.MemberResponseDto;
+import com.jeancmr.library_management.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.enums.MemberStatus;
 import com.jeancmr.library_management.enums.Role;
@@ -46,7 +46,7 @@ public class MemberService implements IMemberService{
 
     @Override
     @Transactional
-    public MemberResponseDto save(MemberCreateRequestDto request) {
+    public MemberResponseDto save(UserCreateRequestDto request) {
         if(userRepository.existsByEmail(request.getEmail())) {
             throw  new RuntimeException("Email already exists");
         }

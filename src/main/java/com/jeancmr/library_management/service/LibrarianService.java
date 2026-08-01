@@ -2,8 +2,8 @@ package com.jeancmr.library_management.service;
 
 import com.jeancmr.library_management.domain.LibrarianProfile;
 import com.jeancmr.library_management.domain.User;
-import com.jeancmr.library_management.dto.LibrarianCreateRequestDto;
 import com.jeancmr.library_management.dto.LibrarianResponseDto;
+import com.jeancmr.library_management.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.enums.Role;
 import com.jeancmr.library_management.mapper.LibrarianProfileMapper;
@@ -46,14 +46,14 @@ public class LibrarianService implements ILibrarianService{
 
     @Override
     @Transactional
-    public LibrarianResponseDto save(LibrarianCreateRequestDto librarianCreateRequestDto) {
-        if(userRepository.existsByEmail(librarianCreateRequestDto.getEmail())) {
+    public LibrarianResponseDto save(UserCreateRequestDto requestDto) {
+        if(userRepository.existsByEmail(requestDto.getEmail())) {
             throw  new RuntimeException("Email already exists");
         }
 
-        User user = userMapper.toEntity(librarianCreateRequestDto);
+        User user = userMapper.toEntity(requestDto);
 
-        LibrarianProfile librarianProfile = librarianMapper.toEntity(librarianCreateRequestDto);
+        LibrarianProfile librarianProfile = librarianMapper.toEntity(requestDto);
         librarianProfile.setHiredDate(LocalDate.now());
 
         user.setRoles(Set.of(Role.ROLE_LIBRARIAN));

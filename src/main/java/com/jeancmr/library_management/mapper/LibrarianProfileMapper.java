@@ -11,7 +11,7 @@ import org.mapstruct.MappingTarget;
 public interface LibrarianProfileMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
-    LibrarianProfile toEntity(LibrarianCreateRequestDto dto);
+    LibrarianProfile toEntity(UserCreateRequestDto dto);
 
     @Mapping(target = "firstName", source = "user.firstName")
     @Mapping(target = "secondName", source = "user.secondName")

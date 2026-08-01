@@ -8,10 +8,11 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LibrarianCreateRequestDto {
+public class UserCreateRequestDto {
 
     @NotBlank(message = "firstName cannot be empty")
     @Size(min = 3, max = 50,

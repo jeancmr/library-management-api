@@ -1,6 +1,5 @@
 package com.jeancmr.library_management.dto;
 
-import com.jeancmr.library_management.enums.MemberStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
