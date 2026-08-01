@@ -4,6 +4,7 @@ import com.jeancmr.library_management.dto.LibrarianCreateRequestDto;
 import com.jeancmr.library_management.dto.LibrarianResponseDto;
 import com.jeancmr.library_management.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.service.ILibrarianService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class LibrarianController {
     }
 
     @PostMapping
-    public ResponseEntity<LibrarianResponseDto> save(@RequestBody LibrarianCreateRequestDto requestDto) {
+    public ResponseEntity<LibrarianResponseDto> save(@Valid @RequestBody LibrarianCreateRequestDto requestDto) {
         return new ResponseEntity<>(librarianService.save(requestDto), HttpStatus.CREATED);
     }
 

@@ -4,6 +4,7 @@ import com.jeancmr.library_management.dto.MemberCreateRequestDto;
 import com.jeancmr.library_management.dto.MemberResponseDto;
 import com.jeancmr.library_management.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.service.IMemberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +25,13 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity<MemberResponseDto> save(@RequestBody MemberCreateRequestDto requestDto) {
+    public ResponseEntity<MemberResponseDto> save(@Valid @RequestBody MemberCreateRequestDto requestDto) {
         return new ResponseEntity<>(memberService.save(requestDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<MemberResponseDto> update(@PathVariable Long id,
-                                                    @RequestBody UserUpdateRequestDto requestDto) {
+                                                     @RequestBody UserUpdateRequestDto requestDto) {
         return ResponseEntity.ok(memberService.update(id, requestDto));
     }
 
