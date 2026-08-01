@@ -1,5 +1,6 @@
 package com.jeancmr.library_management.dto;
 
+import com.jeancmr.library_management.enums.Role;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -39,4 +41,7 @@ public class UserCreateRequestDto {
     @NotNull(message = "Birthdate cannot be null")
     @Past(message = "Birthdate cannot be in the future.")
     private LocalDate birthDate;
+
+    private Set<Role> roles;
+
 }
