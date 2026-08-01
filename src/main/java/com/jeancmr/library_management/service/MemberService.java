@@ -7,6 +7,8 @@ import com.jeancmr.library_management.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.enums.MemberStatus;
 import com.jeancmr.library_management.enums.Role;
+import com.jeancmr.library_management.exception.EmailAlreadyExistsException;
+import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.MemberProfileMapper;
 import com.jeancmr.library_management.mapper.UserMapper;
 import com.jeancmr.library_management.repository.MemberRepository;
@@ -41,14 +43,18 @@ public class MemberService implements IMemberService{
     @Override
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
-        return memberMapper.toResponseDto(findEntityById(id));
+        MemberProfile memberFound = memberRepository.findById(id).orElseThrow(()->
+                new ResourceNotFoundException(MemberProfile.class, id));
+
+        return memberMapper.toResponseDto(memberFound);
+
     }
 
     @Override
     @Transactional
     public MemberResponseDto save(UserCreateRequestDto request) {
         if(userRepository.existsByEmail(request.getEmail())) {
-            throw  new RuntimeException("Email already exists");
+            throw new EmailAlreadyExistsException();
         }
 
         User user = userMapper.toEntity(request);
@@ -70,7 +76,7 @@ public class MemberService implements IMemberService{
     @Transactional
     public MemberResponseDto update(Long id, UserUpdateRequestDto request) {
         User existingUser = memberRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Member not found")).getUser();
+                () -> new ResourceNotFoundException(MemberProfile.class, id)).getUser();
 
         userMapper.updateUser(request, existingUser);
         memberMapper.updateMemberFromDto(request, existingUser.getMemberProfile());
@@ -84,13 +90,9 @@ public class MemberService implements IMemberService{
     @Transactional
     public void deleteById(Long id) {
         if(!memberRepository.existsById(id)) {
-            throw new RuntimeException("Member not found");
+            throw new  ResourceNotFoundException(MemberProfile.class, id);
         }
         userRepository.deleteById(id);
     }
 
-    private MemberProfile findEntityById(Long id){
-        return memberRepository.findById(id).orElseThrow(()->
-                new RuntimeException("Member not found"));
-    }
 }

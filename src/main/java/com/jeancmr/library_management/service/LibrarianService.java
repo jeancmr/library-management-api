@@ -6,6 +6,8 @@ import com.jeancmr.library_management.dto.LibrarianResponseDto;
 import com.jeancmr.library_management.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.enums.Role;
+import com.jeancmr.library_management.exception.EmailAlreadyExistsException;
+import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.LibrarianProfileMapper;
 import com.jeancmr.library_management.mapper.UserMapper;
 import com.jeancmr.library_management.repository.LibrarianRepository;
@@ -39,8 +41,7 @@ public class LibrarianService implements ILibrarianService{
     @Transactional(readOnly = true)
     public LibrarianResponseDto findById(Long id) {
         LibrarianProfile foundLibrarian = librarianRepository.findById(id).
-                orElseThrow(()-> new RuntimeException("No librarian found with id " + id));
-
+                orElseThrow(()-> new ResourceNotFoundException(LibrarianProfile.class, id));
         return librarianMapper.toResponseDto(foundLibrarian);
     }
 
@@ -48,7 +49,7 @@ public class LibrarianService implements ILibrarianService{
     @Transactional
     public LibrarianResponseDto save(UserCreateRequestDto requestDto) {
         if(userRepository.existsByEmail(requestDto.getEmail())) {
-            throw  new RuntimeException("Email already exists");
+            throw new EmailAlreadyExistsException();
         }
 
         User user = userMapper.toEntity(requestDto);
@@ -67,8 +68,9 @@ public class LibrarianService implements ILibrarianService{
     @Override
     @Transactional
     public LibrarianResponseDto update(Long id, UserUpdateRequestDto userUpdateRequestDto) {
-        User existingUser = librarianRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Librarian not found")).getUser();
+        User existingUser = librarianRepository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException(LibrarianProfile.class, id))
+                        .getUser();
 
         userMapper.updateUser(userUpdateRequestDto, existingUser);
         librarianMapper.updateLibrarianFromDto(userUpdateRequestDto, existingUser.getLibrarianProfile());
@@ -82,7 +84,7 @@ public class LibrarianService implements ILibrarianService{
     @Transactional
     public void deleteById(Long id) {
         if(!librarianRepository.existsById(id)) {
-            throw new RuntimeException("Librarian not found");
+            throw new ResourceNotFoundException(LibrarianProfile.class, id);
         }
         userRepository.deleteById(id);
     }
