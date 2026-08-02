@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.controller;
 
 import com.jeancmr.library_management.dto.AuthorDto;
-import com.jeancmr.library_management.service.IAuthorService;
+import com.jeancmr.library_management.service.interfaces.IAuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -3,8 +3,8 @@ package com.jeancmr.library_management.service;
 import com.jeancmr.library_management.domain.LibrarianProfile;
 import com.jeancmr.library_management.domain.User;
 import com.jeancmr.library_management.dto.LibrarianResponseDto;
-import com.jeancmr.library_management.dto.UserCreateRequestDto;
-import com.jeancmr.library_management.dto.UserUpdateRequestDto;
+import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
+import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.enums.Role;
 import com.jeancmr.library_management.exception.EmailAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
@@ -12,6 +12,7 @@ import com.jeancmr.library_management.mapper.LibrarianProfileMapper;
 import com.jeancmr.library_management.mapper.UserMapper;
 import com.jeancmr.library_management.repository.LibrarianRepository;
 import com.jeancmr.library_management.repository.UserRepository;
+import com.jeancmr.library_management.service.interfaces.ILibrarianService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class LibrarianService implements ILibrarianService{
+public class LibrarianService implements ILibrarianService {
 
     private final LibrarianRepository  librarianRepository;
     private final UserRepository userRepository;

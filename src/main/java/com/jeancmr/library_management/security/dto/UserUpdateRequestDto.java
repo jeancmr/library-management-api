@@ -1,4 +1,4 @@
-package com.jeancmr.library_management.dto;
+package com.jeancmr.library_management.security.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Getter;

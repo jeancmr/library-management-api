@@ -5,6 +5,7 @@ import com.jeancmr.library_management.dto.AuthorDto;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.AuthorMapper;
 import com.jeancmr.library_management.repository.AuthorRepository;
+import com.jeancmr.library_management.service.interfaces.IAuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

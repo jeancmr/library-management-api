@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.security.controller;
 
 import com.jeancmr.library_management.domain.User;
-import com.jeancmr.library_management.dto.UserCreateRequestDto;
+import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.exception.EmailAlreadyExistsException;
 import com.jeancmr.library_management.mapper.UserMapper;
 import com.jeancmr.library_management.repository.UserRepository;

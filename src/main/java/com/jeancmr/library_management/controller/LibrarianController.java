@@ -1,9 +1,9 @@
 package com.jeancmr.library_management.controller;
 
 import com.jeancmr.library_management.dto.LibrarianResponseDto;
-import com.jeancmr.library_management.dto.UserCreateRequestDto;
-import com.jeancmr.library_management.dto.UserUpdateRequestDto;
-import com.jeancmr.library_management.service.ILibrarianService;
+import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
+import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;
+import com.jeancmr.library_management.service.interfaces.ILibrarianService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

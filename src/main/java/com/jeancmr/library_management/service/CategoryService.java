@@ -5,6 +5,7 @@ import com.jeancmr.library_management.dto.CategoryDto;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.CategoryMapper;
 import com.jeancmr.library_management.repository.CategoryRepository;
+import com.jeancmr.library_management.service.interfaces.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CategoryService implements ICategoryService{
+public class CategoryService implements ICategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryMapper  categoryMapper;

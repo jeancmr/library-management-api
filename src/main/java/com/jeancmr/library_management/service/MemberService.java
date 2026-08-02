@@ -3,8 +3,8 @@ package com.jeancmr.library_management.service;
 import com.jeancmr.library_management.domain.MemberProfile;
 import com.jeancmr.library_management.domain.User;
 import com.jeancmr.library_management.dto.MemberResponseDto;
-import com.jeancmr.library_management.dto.UserCreateRequestDto;
-import com.jeancmr.library_management.dto.UserUpdateRequestDto;
+import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
+import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.enums.MemberStatus;
 import com.jeancmr.library_management.enums.Role;
 import com.jeancmr.library_management.exception.EmailAlreadyExistsException;
@@ -13,6 +13,7 @@ import com.jeancmr.library_management.mapper.MemberProfileMapper;
 import com.jeancmr.library_management.mapper.UserMapper;
 import com.jeancmr.library_management.repository.MemberRepository;
 import com.jeancmr.library_management.repository.UserRepository;
+import com.jeancmr.library_management.service.interfaces.IMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService implements IMemberService{
+public class MemberService implements IMemberService {
 
     private final MemberRepository  memberRepository;
     private final UserRepository  userRepository;
