@@ -1,0 +1,58 @@
+package com.jeancmr.library_management.service;
+
+import com.jeancmr.library_management.domain.Author;
+import com.jeancmr.library_management.dto.AuthorDto;
+import com.jeancmr.library_management.exception.ResourceNotFoundException;
+import com.jeancmr.library_management.mapper.AuthorMapper;
+import com.jeancmr.library_management.repository.AuthorRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class AuthorService implements IAuthorService {
+
+    private final AuthorRepository authorRepository;
+    private final AuthorMapper authorMapper;
+
+    @Override
+    public List<AuthorDto> findAll() {
+        return authorRepository.findAll()
+                .stream()
+                .map(authorMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    public AuthorDto findById(Long id) {
+        Author foundAuthor = authorRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException(Author.class, id));
+        return authorMapper.toDto(foundAuthor);
+    }
+
+    @Override
+    public AuthorDto save(AuthorDto authorDto) {
+        Author author = authorMapper.toEntity(authorDto);
+        Author savedAuthor = authorRepository.save(author);
+
+        return authorMapper.toDto(savedAuthor);
+    }
+
+    @Override
+    public AuthorDto update(Long id, AuthorDto authorDto) {
+        Author existingAuthor = authorMapper.toEntity(findById(id));
+        authorMapper.update(authorDto, existingAuthor);
+        Author updatedAuthor = authorRepository.save(existingAuthor);
+
+        return authorMapper.toDto(updatedAuthor);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Long authorToDeleteId = findById(id).getId();
+
+        authorRepository.deleteById(authorToDeleteId);
+    }
+}
