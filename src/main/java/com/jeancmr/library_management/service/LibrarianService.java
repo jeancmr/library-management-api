@@ -13,6 +13,7 @@ import com.jeancmr.library_management.mapper.UserMapper;
 import com.jeancmr.library_management.repository.LibrarianRepository;
 import com.jeancmr.library_management.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class LibrarianService implements ILibrarianService{
     private final UserRepository userRepository;
     private final LibrarianProfileMapper librarianMapper;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -59,6 +61,7 @@ public class LibrarianService implements ILibrarianService{
 
         user.setRoles(Set.of(Role.ROLE_LIBRARIAN));
         user.assignLibrarianProfile(librarianProfile);
+        user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
 
         User savedUser = userRepository.save(user);
 

@@ -14,6 +14,7 @@ import com.jeancmr.library_management.mapper.UserMapper;
 import com.jeancmr.library_management.repository.MemberRepository;
 import com.jeancmr.library_management.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,7 @@ public class MemberService implements IMemberService{
     private final UserRepository  userRepository;
     private final UserMapper  userMapper;
     private final MemberProfileMapper memberMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly = true)
@@ -66,6 +68,7 @@ public class MemberService implements IMemberService{
 
         user.setRoles(Set.of(Role.ROLE_MEMBER));
         user.assignMemberProfile(memberProfile);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User savedUser = userRepository.save(user);
 

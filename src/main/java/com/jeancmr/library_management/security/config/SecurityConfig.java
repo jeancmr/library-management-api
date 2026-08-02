@@ -1,5 +1,6 @@
 package com.jeancmr.library_management.security.config;
 
+import com.jeancmr.library_management.security.jwt.JwtAccessDeniedHandler;
 import com.jeancmr.library_management.security.jwt.JwtAuthEntryPoint;
 import com.jeancmr.library_management.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +23,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
+    private final JwtAccessDeniedHandler  jwtAccessDeniedHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(exception ->
-                        exception.authenticationEntryPoint(jwtAuthEntryPoint))
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(jwtAuthEntryPoint)
+                        .accessDeniedHandler(jwtAccessDeniedHandler)
+                )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )

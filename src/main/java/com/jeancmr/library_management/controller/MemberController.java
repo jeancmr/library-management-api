@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,28 +21,33 @@ public class MemberController {
     private final IMemberService  memberService;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public List<MemberResponseDto> findAll() {
         return memberService.findAll();
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public ResponseEntity<MemberResponseDto> save(@Valid @RequestBody UserCreateRequestDto requestDto) {
         return new ResponseEntity<>(memberService.save(requestDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public ResponseEntity<MemberResponseDto> update(@PathVariable Long id,
                                                      @RequestBody UserUpdateRequestDto requestDto) {
         return ResponseEntity.ok(memberService.update(id, requestDto));
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public ResponseEntity<MemberResponseDto> findById(@PathVariable Long id) {
         MemberResponseDto foundMember = memberService.findById(id);
         return ResponseEntity.ok(foundMember);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         memberService.deleteById(id);
         return ResponseEntity.noContent().build();

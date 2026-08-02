@@ -2,6 +2,7 @@ package com.jeancmr.library_management.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -59,6 +60,17 @@ public class GlobalExceptionHandler {
         return ErrorResponse.builder()
                 .error("User Not Found")
                 .status(HttpStatus.NOT_FOUND.value())
+                .message(ex.getMessage())
+                .timestamp(LocalDate.now())
+                .build();
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorResponse handleAuthorizationDeniedException(AuthorizationDeniedException ex){
+        return ErrorResponse.builder()
+                .error("Unauthorized")
+                .status(HttpStatus.UNAUTHORIZED.value())
                 .message(ex.getMessage())
                 .timestamp(LocalDate.now())
                 .build();
