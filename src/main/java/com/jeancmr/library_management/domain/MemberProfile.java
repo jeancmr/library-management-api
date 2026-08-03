@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "members")
@@ -33,4 +35,7 @@ public class MemberProfile {
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "member")
+    private Set<Loan> loans = new HashSet<>();
 }

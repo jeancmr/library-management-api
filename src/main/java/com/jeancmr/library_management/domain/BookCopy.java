@@ -1,28 +1,28 @@
 package com.jeancmr.library_management.domain;
 
+import com.jeancmr.library_management.enums.BookCopyStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
-@Table(name = "publishers")
+@Table(name = "BookCopies")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Publisher {
+public class BookCopy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BookCopyStatus status;
 
-    @OneToMany(mappedBy = "publisher")
-    private Set<Book> books = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
+    private Book book;
 }

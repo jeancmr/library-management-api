@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -48,4 +49,7 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<Category> categories;
+
+    @OneToMany(mappedBy = "book")
+    private Set<BookCopy> copyBooks = new HashSet<>();
 }

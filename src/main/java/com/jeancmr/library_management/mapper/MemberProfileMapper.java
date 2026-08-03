@@ -12,6 +12,7 @@ import org.mapstruct.MappingTarget;
 public interface MemberProfileMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
+    @Mapping(target = "loans", ignore = true)
     MemberProfile toEntity(UserCreateRequestDto dto);
 
     @Mapping(target = "firstName", source = "user.firstName")
@@ -25,5 +26,6 @@ public interface MemberProfileMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
+    @Mapping(target = "loans", ignore = true)
     void updateMemberFromDto(UserUpdateRequestDto dto, @MappingTarget MemberProfile memberProfile);
 }
