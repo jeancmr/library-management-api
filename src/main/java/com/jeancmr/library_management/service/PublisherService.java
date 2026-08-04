@@ -28,9 +28,7 @@ public class PublisherService implements IPublisherService {
 
     @Override
     public PublisherDto findById(Long id) {
-        Publisher foundPublisher = publisherRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException(Publisher.class, id));
-        return publisherMapper.toDto(foundPublisher);
+        return publisherMapper.toDto(findEntityById(id));
     }
 
     @Override
@@ -55,5 +53,12 @@ public class PublisherService implements IPublisherService {
         Long publisherToDeleteId = findById(id).getId();
 
         publisherRepository.deleteById(publisherToDeleteId);
+    }
+
+    @Override
+    public Publisher findEntityById(Long id) {
+        return publisherRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(Publisher.class, id));
     }
 }

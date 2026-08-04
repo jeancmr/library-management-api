@@ -40,7 +40,7 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
-    private Set<Author> authors;
+    private Set<Author> authors =  new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -48,8 +48,28 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<Category> categories;
+    private Set<Category> categories =  new HashSet<>();
 
     @OneToMany(mappedBy = "book")
     private Set<BookCopy> copyBooks = new HashSet<>();
+
+    public void addAuthor(Author author){
+        authors.add(author);
+        author.getBooks().add(this);
+    }
+
+    public void deleteAuthor(Author author){
+        authors.remove(author);
+        author.getBooks().remove(this);
+    }
+
+    public void addCategory(Category category){
+        categories.add(category);
+        category.getBooks().add(this);
+    }
+
+    public void deleteCategory(Category category){
+        categories.remove(category);
+        category.getBooks().remove(this);
+    }
 }
