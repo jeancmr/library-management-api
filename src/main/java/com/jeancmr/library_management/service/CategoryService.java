@@ -30,7 +30,7 @@ public class CategoryService implements ICategoryService {
     @Override
     public CategoryDto findById(Long id) {
         Category foundCategory = categoryRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException(Category.class, id));
+                new ResourceNotFoundException("Category", "ID", id));
         return categoryMapper.toDto(foundCategory);
     }
 

@@ -30,7 +30,7 @@ public class AuthorService implements IAuthorService {
     @Override
     public AuthorDto findById(Long id) {
         Author foundAuthor = authorRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException(Author.class, id));
+                new ResourceNotFoundException("Author", "ID", id));
         return authorMapper.toDto(foundAuthor);
     }
 

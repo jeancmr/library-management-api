@@ -42,7 +42,7 @@ public class BookService implements IBookService {
     public Book findById(Long id) {
         return bookRepository.findById(id).
                 orElseThrow(() ->
-                        new ResourceNotFoundException(Book.class, id));
+                        new ResourceNotFoundException("Book", "ID", id));
     }
 
     @Override
@@ -58,12 +58,12 @@ public class BookService implements IBookService {
 
         Set<Author> authors = dto.getAuthorsId().stream().map(authorId ->
                 authorRepository.findById(authorId)
-                        .orElseThrow(() -> new ResourceNotFoundException(Author.class, authorId)))
+                        .orElseThrow(() -> new ResourceNotFoundException("Author", "ID", authorId)))
                 .collect(Collectors.toSet());
 
         Set<Category> categories = dto.getCategoriesId().stream().map(categoryId ->
                 categoryRepository.findById(categoryId)
-                        .orElseThrow(()-> new ResourceNotFoundException(Category.class, categoryId)))
+                        .orElseThrow(()-> new ResourceNotFoundException("Category", "ID", categoryId)))
                 .collect(Collectors.toSet());
 
         newBook.setPublisher(publisher);

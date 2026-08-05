@@ -44,7 +44,7 @@ public class LibrarianService implements ILibrarianService {
     @Transactional(readOnly = true)
     public LibrarianResponseDto findById(Long id) {
         LibrarianProfile foundLibrarian = librarianRepository.findById(id).
-                orElseThrow(()-> new ResourceNotFoundException(LibrarianProfile.class, id));
+                orElseThrow(()-> new ResourceNotFoundException("Librarian", "ID", id));
         return librarianMapper.toResponseDto(foundLibrarian);
     }
 
@@ -73,7 +73,7 @@ public class LibrarianService implements ILibrarianService {
     @Transactional
     public LibrarianResponseDto update(Long id, UserUpdateRequestDto userUpdateRequestDto) {
         User existingUser = librarianRepository.findById(id).
-                orElseThrow(() -> new ResourceNotFoundException(LibrarianProfile.class, id))
+                orElseThrow(() -> new ResourceNotFoundException("Librarian", "ID", id))
                         .getUser();
 
         userMapper.updateUser(userUpdateRequestDto, existingUser);
@@ -88,7 +88,7 @@ public class LibrarianService implements ILibrarianService {
     @Transactional
     public void deleteById(Long id) {
         if(!librarianRepository.existsById(id)) {
-            throw new ResourceNotFoundException(LibrarianProfile.class, id);
+            throw new ResourceNotFoundException("Librarian", "ID", id);
         }
         userRepository.deleteById(id);
     }

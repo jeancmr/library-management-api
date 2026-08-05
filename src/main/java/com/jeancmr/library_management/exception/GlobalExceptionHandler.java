@@ -36,18 +36,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleResourceNotFoundException(ResourceNotFoundException ex){
         return ErrorResponse.builder()
-                .error("Resource Not Found")
-                .status(HttpStatus.NOT_FOUND.value())
-                .message(ex.getMessage())
-                .timestamp(LocalDate.now())
-                .build();
-    }
-
-    @ExceptionHandler(UserWithEmailNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleUserWithEmailNotFoundException(UserWithEmailNotFoundException ex){
-        return ErrorResponse.builder()
-                .error("User Not Found")
+                .error("Not Found")
                 .status(HttpStatus.NOT_FOUND.value())
                 .message(ex.getMessage())
                 .timestamp(LocalDate.now())

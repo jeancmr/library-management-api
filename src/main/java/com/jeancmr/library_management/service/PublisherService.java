@@ -64,6 +64,6 @@ public class PublisherService implements IPublisherService {
     public Publisher findEntityById(Long id) {
         return publisherRepository.findById(id)
                 .orElseThrow(() ->
-                        new ResourceNotFoundException(Publisher.class, id));
+                        new ResourceNotFoundException("Publisher", "ID", id));
     }
 }

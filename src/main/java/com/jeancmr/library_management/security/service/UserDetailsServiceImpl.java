@@ -3,7 +3,6 @@ package com.jeancmr.library_management.security.service;
 import com.jeancmr.library_management.domain.User;
 import com.jeancmr.library_management.enums.Role;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
-import com.jeancmr.library_management.exception.UserWithEmailNotFoundException;
 import com.jeancmr.library_management.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
@@ -24,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(@NonNull String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(()-> new UserWithEmailNotFoundException(email));
+                .orElseThrow(()-> new ResourceNotFoundException("User", "email", email));
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),

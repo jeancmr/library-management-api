@@ -47,7 +47,7 @@ public class MemberService implements IMemberService {
     @Transactional(readOnly = true)
     public MemberResponseDto findById(Long id) {
         MemberProfile memberFound = memberRepository.findById(id).orElseThrow(()->
-                new ResourceNotFoundException(MemberProfile.class, id));
+                new ResourceNotFoundException("Member",  "ID", id));
 
         return memberMapper.toResponseDto(memberFound);
 
@@ -80,7 +80,7 @@ public class MemberService implements IMemberService {
     @Transactional
     public MemberResponseDto update(Long id, UserUpdateRequestDto request) {
         User existingUser = memberRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(MemberProfile.class, id)).getUser();
+                () -> new ResourceNotFoundException("Member", "ID", id)).getUser();
 
         userMapper.updateUser(request, existingUser);
         memberMapper.updateMemberFromDto(request, existingUser.getMemberProfile());
@@ -94,7 +94,7 @@ public class MemberService implements IMemberService {
     @Transactional
     public void deleteById(Long id) {
         if(!memberRepository.existsById(id)) {
-            throw new  ResourceNotFoundException(MemberProfile.class, id);
+            throw new  ResourceNotFoundException("Member",  "ID", id);
         }
         userRepository.deleteById(id);
     }
