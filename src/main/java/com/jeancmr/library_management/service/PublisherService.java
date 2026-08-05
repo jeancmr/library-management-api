@@ -9,6 +9,7 @@ import com.jeancmr.library_management.repository.PublisherRepository;
 import com.jeancmr.library_management.service.interfaces.IPublisherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class PublisherService implements IPublisherService {
     private final PublisherMapper publisherMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<PublisherDto> findAll() {
         return publisherRepository.findAll()
                 .stream()
@@ -28,11 +30,13 @@ public class PublisherService implements IPublisherService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PublisherDto findById(Long id) {
         return publisherMapper.toDto(findEntityById(id));
     }
 
     @Override
+    @Transactional
     public PublisherDto save(PublisherDto publisherDto) {
         if(publisherRepository.existsByName(publisherDto.getName())) {
             throw new ResourceAlreadyExistsException("Publisher", "name", publisherDto.getName());
@@ -45,6 +49,7 @@ public class PublisherService implements IPublisherService {
     }
 
     @Override
+    @Transactional
     public PublisherDto update(Long id, PublisherDto publisherDto) {
         Publisher existingPublisher = publisherMapper.toEntity(findById(id));
         publisherMapper.update(publisherDto, existingPublisher);
@@ -54,6 +59,7 @@ public class PublisherService implements IPublisherService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Long publisherToDeleteId = findById(id).getId();
 
@@ -61,6 +67,7 @@ public class PublisherService implements IPublisherService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Publisher findEntityById(Long id) {
         return publisherRepository.findById(id)
                 .orElseThrow(() ->

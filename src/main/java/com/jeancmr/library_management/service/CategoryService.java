@@ -9,6 +9,7 @@ import com.jeancmr.library_management.repository.CategoryRepository;
 import com.jeancmr.library_management.service.interfaces.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class CategoryService implements ICategoryService {
     private final CategoryMapper  categoryMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<CategoryDto> findAll() {
         return categoryRepository.findAll()
                 .stream()
@@ -28,6 +30,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CategoryDto findById(Long id) {
         Category foundCategory = categoryRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Category", "ID", id));
@@ -35,6 +38,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDto save(CategoryDto categoryDto) {
         if(categoryRepository.existsByName(categoryDto.getName())) {
             throw new ResourceAlreadyExistsException("Category", "name", categoryDto.getName());
@@ -47,6 +51,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDto update(Long id, CategoryDto categoryDto) {
         Category existingCategory= categoryMapper.toEntity(findById(id));
         categoryMapper.update(categoryDto, existingCategory);
@@ -56,6 +61,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void deleteById(Long id) {
         Long categoryToDeleteId = findById(id).getId();
 

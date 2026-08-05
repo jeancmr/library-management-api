@@ -9,6 +9,7 @@ import com.jeancmr.library_management.repository.AuthorRepository;
 import com.jeancmr.library_management.service.interfaces.IAuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class AuthorService implements IAuthorService {
     private final AuthorMapper authorMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<AuthorDto> findAll() {
         return authorRepository.findAll()
                 .stream()
@@ -28,6 +30,7 @@ public class AuthorService implements IAuthorService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AuthorDto findById(Long id) {
         Author foundAuthor = authorRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Author", "ID", id));
@@ -35,6 +38,7 @@ public class AuthorService implements IAuthorService {
     }
 
     @Override
+    @Transactional
     public AuthorDto save(AuthorDto authorDto) {
         if(authorRepository.existsByName(authorDto.getName())) {
             throw new ResourceAlreadyExistsException("Author", "name", authorDto.getName());
@@ -47,6 +51,7 @@ public class AuthorService implements IAuthorService {
     }
 
     @Override
+    @Transactional
     public AuthorDto update(Long id, AuthorDto authorDto) {
         Author existingAuthor = authorMapper.toEntity(findById(id));
         authorMapper.update(authorDto, existingAuthor);
@@ -56,6 +61,7 @@ public class AuthorService implements IAuthorService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Long authorToDeleteId = findById(id).getId();
 
