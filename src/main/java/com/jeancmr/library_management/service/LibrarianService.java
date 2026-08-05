@@ -3,10 +3,10 @@ package com.jeancmr.library_management.service;
 import com.jeancmr.library_management.domain.LibrarianProfile;
 import com.jeancmr.library_management.domain.User;
 import com.jeancmr.library_management.dto.LibrarianResponseDto;
+import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.enums.Role;
-import com.jeancmr.library_management.exception.EmailAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.LibrarianProfileMapper;
 import com.jeancmr.library_management.mapper.UserMapper;
@@ -52,7 +52,7 @@ public class LibrarianService implements ILibrarianService {
     @Transactional
     public LibrarianResponseDto save(UserCreateRequestDto requestDto) {
         if(userRepository.existsByEmail(requestDto.getEmail())) {
-            throw new EmailAlreadyExistsException();
+            throw new ResourceAlreadyExistsException("User", "email", requestDto.getEmail());
         }
 
         User user = userMapper.toEntity(requestDto);

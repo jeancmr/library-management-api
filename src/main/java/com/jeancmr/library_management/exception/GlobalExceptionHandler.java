@@ -43,17 +43,6 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
-    @ExceptionHandler(EmailAlreadyExistsException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleEmailAlreadyExistsException(EmailAlreadyExistsException ex){
-        return ErrorResponse.builder()
-                .error("Conflict")
-                .status(HttpStatus.CONFLICT.value())
-                .message(ex.getMessage())
-                .timestamp(LocalDate.now())
-                .build();
-    }
-
     @ExceptionHandler(UserWithEmailNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleUserWithEmailNotFoundException(UserWithEmailNotFoundException ex){
@@ -71,6 +60,17 @@ public class GlobalExceptionHandler {
         return ErrorResponse.builder()
                 .error("Unauthorized")
                 .status(HttpStatus.UNAUTHORIZED.value())
+                .message(ex.getMessage())
+                .timestamp(LocalDate.now())
+                .build();
+    }
+
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleResourceAlreadyExistsException(ResourceAlreadyExistsException ex){
+        return ErrorResponse.builder()
+                .error("Conflict")
+                .status(HttpStatus.CONFLICT.value())
                 .message(ex.getMessage())
                 .timestamp(LocalDate.now())
                 .build();

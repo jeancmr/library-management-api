@@ -120,9 +120,8 @@ public class DataLoader implements CommandLineRunner {
         book1.setIsbn("8482806866");
         book1.setTitle("100 hundred years of solitude");
         book1.setPublicationDate(LocalDate.of(1967,5,30));
-        book1.setPublisher(publisher);
+        book1.setPublisher(savedPublisher);
         book1.setCategories(Set.of(category1, category2));
-        book1.setPublisher(publisher);
         book1.setAuthors(Set.of(savedAuthor));
 
         bookRepository.save(book1);

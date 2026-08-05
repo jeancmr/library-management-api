@@ -2,6 +2,7 @@ package com.jeancmr.library_management.service;
 
 import com.jeancmr.library_management.domain.Category;
 import com.jeancmr.library_management.dto.CategoryDto;
+import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.CategoryMapper;
 import com.jeancmr.library_management.repository.CategoryRepository;
@@ -35,6 +36,10 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public CategoryDto save(CategoryDto categoryDto) {
+        if(categoryRepository.existsByName(categoryDto.getName())) {
+            throw new ResourceAlreadyExistsException("Category", "name", categoryDto.getName());
+        }
+
         Category category = categoryMapper.toEntity(categoryDto);
         Category savedCategory = categoryRepository.save(category);
 

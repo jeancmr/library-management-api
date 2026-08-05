@@ -2,6 +2,7 @@ package com.jeancmr.library_management.service;
 
 import com.jeancmr.library_management.domain.Author;
 import com.jeancmr.library_management.dto.AuthorDto;
+import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.AuthorMapper;
 import com.jeancmr.library_management.repository.AuthorRepository;
@@ -35,6 +36,10 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public AuthorDto save(AuthorDto authorDto) {
+        if(authorRepository.existsByName(authorDto.getName())) {
+            throw new ResourceAlreadyExistsException("Author", "name", authorDto.getName());
+        }
+
         Author author = authorMapper.toEntity(authorDto);
         Author savedAuthor = authorRepository.save(author);
 

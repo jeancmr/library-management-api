@@ -1,8 +1,8 @@
 package com.jeancmr.library_management.security.controller;
 
 import com.jeancmr.library_management.domain.User;
+import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
-import com.jeancmr.library_management.exception.EmailAlreadyExistsException;
 import com.jeancmr.library_management.mapper.UserMapper;
 import com.jeancmr.library_management.repository.UserRepository;
 import com.jeancmr.library_management.security.dto.JwtAuthResponseDto;
@@ -49,7 +49,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@Valid @RequestBody UserCreateRequestDto registerDto) {
         if(userRepository.existsByEmail(registerDto.getEmail())){
-            throw new EmailAlreadyExistsException();
+            throw new ResourceAlreadyExistsException("User",  "email", registerDto.getEmail());
         }
 
         User user = userMapper.toEntity(registerDto);

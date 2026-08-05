@@ -2,6 +2,7 @@ package com.jeancmr.library_management.service;
 
 import com.jeancmr.library_management.domain.Publisher;
 import com.jeancmr.library_management.dto.PublisherDto;
+import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.PublisherMapper;
 import com.jeancmr.library_management.repository.PublisherRepository;
@@ -33,6 +34,10 @@ public class PublisherService implements IPublisherService {
 
     @Override
     public PublisherDto save(PublisherDto publisherDto) {
+        if(publisherRepository.existsByName(publisherDto.getName())) {
+            throw new ResourceAlreadyExistsException("Publisher", "name", publisherDto.getName());
+        }
+
         Publisher publisher = publisherMapper.toEntity(publisherDto);
         Publisher savedPublisher = publisherRepository.save(publisher);
 

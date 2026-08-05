@@ -5,9 +5,9 @@ import com.jeancmr.library_management.domain.Book;
 import com.jeancmr.library_management.domain.Category;
 import com.jeancmr.library_management.domain.Publisher;
 import com.jeancmr.library_management.dto.BookRequestDto;
+import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.BookMapper;
-import com.jeancmr.library_management.mapper.PublisherMapper;
 import com.jeancmr.library_management.repository.AuthorRepository;
 import com.jeancmr.library_management.repository.BookRepository;
 import com.jeancmr.library_management.repository.CategoryRepository;
@@ -48,6 +48,10 @@ public class BookService implements IBookService {
     @Override
     @Transactional
     public Book save(BookRequestDto dto) {
+        if(bookRepository.existsByIsbn(dto.getIsbn())) {
+            throw new ResourceAlreadyExistsException("Book", "ISBN", dto.getIsbn());
+        }
+
         Book newBook = bookMapper.toEntity(dto);
 
         Publisher publisher = publisherService.findEntityById(dto.getPublisherId());

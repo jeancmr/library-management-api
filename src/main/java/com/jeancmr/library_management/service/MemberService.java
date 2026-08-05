@@ -3,11 +3,11 @@ package com.jeancmr.library_management.service;
 import com.jeancmr.library_management.domain.MemberProfile;
 import com.jeancmr.library_management.domain.User;
 import com.jeancmr.library_management.dto.MemberResponseDto;
+import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.enums.MemberStatus;
 import com.jeancmr.library_management.enums.Role;
-import com.jeancmr.library_management.exception.EmailAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.MemberProfileMapper;
 import com.jeancmr.library_management.mapper.UserMapper;
@@ -57,7 +57,7 @@ public class MemberService implements IMemberService {
     @Transactional
     public MemberResponseDto save(UserCreateRequestDto request) {
         if(userRepository.existsByEmail(request.getEmail())) {
-            throw new EmailAlreadyExistsException();
+            throw new ResourceAlreadyExistsException("User", "email", request.getEmail());
         }
 
         User user = userMapper.toEntity(request);
