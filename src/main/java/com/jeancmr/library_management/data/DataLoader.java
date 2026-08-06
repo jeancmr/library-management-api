@@ -104,7 +104,7 @@ public class DataLoader implements CommandLineRunner {
         Publisher savedPublisher = publisherRepository.save(publisher);
         System.out.println("publisher created.");
 
-        // --- AUTHOR ---
+        // --- AUTHORS ---
         Author author  = new Author(null, "Gabriel García Márquez",
                 LocalDate.of(1927,3,6),
                 "Colombia",
@@ -114,6 +114,18 @@ public class DataLoader implements CommandLineRunner {
                 new HashSet<>());
         Author savedAuthor = authorRepository.save(author);
         System.out.println("Author " + author.getName() + " created.");
+
+        Author author2 = new Author(
+                null,
+                "George Orwell",
+                LocalDate.of(1903, 6, 25),
+                "United Kingdom",
+                "English novelist, essayist, journalist and critic, best known for 1984 and Animal Farm.",
+                new HashSet<>()
+        );
+
+        Author savedAuthor2 = authorRepository.save(author2);
+        System.out.println("Author " + savedAuthor2.getName() + " created.");
 
         // --- BOOKS ---
         Book book1 = new Book();
@@ -126,5 +138,27 @@ public class DataLoader implements CommandLineRunner {
 
         bookRepository.save(book1);
         System.out.println("Book " + book1.getTitle() + " created.");
+
+        Book book2 = new Book();
+        book2.setIsbn("9780307389732");
+        book2.setTitle("Love in the Time of Cholera");
+        book2.setPublicationDate(LocalDate.of(1985, 9, 5));
+        book2.setPublisher(savedPublisher);
+        book2.setCategories(Set.of(category1, category2));
+        book2.setAuthors(Set.of(savedAuthor));
+
+        bookRepository.save(book2);
+        System.out.println("Book " + book2.getTitle() + " created.");
+
+        Book book3 = new Book();
+        book3.setIsbn("9780451524935");
+        book3.setTitle("1984");
+        book3.setPublicationDate(LocalDate.of(1949, 6, 8));
+        book3.setPublisher(savedPublisher);
+        book3.setCategories(Set.of(category2));
+        book3.setAuthors(Set.of(savedAuthor2));
+
+        bookRepository.save(book3);
+        System.out.println("Book " + book3.getTitle() + " created.");
     }
 }
