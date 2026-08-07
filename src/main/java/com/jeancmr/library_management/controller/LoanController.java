@@ -32,7 +32,7 @@ public class LoanController {
         return ResponseEntity.ok(foundLoan);
     }
 
-    @GetMapping("/book/{id}")
+    @GetMapping("/book/{memberId}")
     public ResponseEntity<List<LoanResponseDto>> getLoansByMemberId(@PathVariable Long memberId){
         List<LoanResponseDto> loansByMember = loanService.findByMemberId(memberId)
                 .stream().map(loanMapper::toDto).toList();
