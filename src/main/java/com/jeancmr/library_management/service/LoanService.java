@@ -13,7 +13,9 @@ import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.LoanMapper;
 import com.jeancmr.library_management.repository.*;
 import com.jeancmr.library_management.service.interfaces.IBookCopyService;
+import com.jeancmr.library_management.service.interfaces.ILibrarianService;
 import com.jeancmr.library_management.service.interfaces.ILoanService;
+import com.jeancmr.library_management.service.interfaces.IMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,9 +29,8 @@ public class LoanService implements ILoanService {
 
     private final LoanRepository loanRepository;
     private final LoanMapper  loanMapper;
-    private final MemberRepository memberRepository;
-    private final LibrarianRepository librarianRepository;
-    private final BookCopyRepository  bookCopyRepository;
+    private final IMemberService memberService;
+    private final ILibrarianService librarianService;
     private final IBookCopyService  bookCopyService;
 
     @Override
@@ -50,10 +51,8 @@ public class LoanService implements ILoanService {
     public Loan save(LoanRequestDto loanRequestDto) {
         Loan  newLoan = loanMapper.toEntity(loanRequestDto);
 
-        MemberProfile member = memberRepository.findById(loanRequestDto.getMemberId())
-                .orElseThrow(() -> new ResourceNotFoundException("Member",  "ID", loanRequestDto.getMemberId()));
-        LibrarianProfile librarian = librarianRepository.findById(loanRequestDto.getLibrarianId())
-                .orElseThrow(() -> new ResourceNotFoundException("Librarian", "ID", loanRequestDto.getLibrarianId()));
+        MemberProfile member = memberService.findById(loanRequestDto.getMemberId());
+        LibrarianProfile librarian = librarianService.findById(loanRequestDto.getLibrarianId());
         BookCopy bookCopy = bookCopyService.findById(loanRequestDto.getBookCopyId());
 
         if (bookCopy.getStatus() != BookCopyStatus.AVAILABLE) {
@@ -75,6 +74,9 @@ public class LoanService implements ILoanService {
     @Override
     @Transactional(readOnly = true)
     public List<Loan> findByMemberId(Long memberId) {
+        if(memberService.findById(memberId) == null) {
+            throw new ResourceNotFoundException("Member", "id", memberId);
+        }
         return loanRepository.findByMemberId(memberId);
     }
 }

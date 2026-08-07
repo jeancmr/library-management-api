@@ -1,6 +1,8 @@
 package com.jeancmr.library_management.controller;
 
+import com.jeancmr.library_management.domain.LibrarianProfile;
 import com.jeancmr.library_management.dto.LibrarianResponseDto;
+import com.jeancmr.library_management.mapper.LibrarianProfileMapper;
 import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.service.interfaces.ILibrarianService;
@@ -19,31 +21,38 @@ import java.util.List;
 public class LibrarianController {
 
     private final ILibrarianService  librarianService;
+    private final LibrarianProfileMapper librarianProfileMapper;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public List<LibrarianResponseDto> findAll() {
-        return librarianService.findAll();
+        return librarianService.findAll()
+                .stream().map(librarianProfileMapper::toResponseDto).toList();
     }
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<LibrarianResponseDto> save(@Valid @RequestBody UserCreateRequestDto requestDto) {
-        return new ResponseEntity<>(librarianService.save(requestDto), HttpStatus.CREATED);
+        LibrarianProfile savedLibrarian =  librarianService.save(requestDto);
+        LibrarianResponseDto responseDto = librarianProfileMapper.toResponseDto(savedLibrarian);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<LibrarianResponseDto> update(@PathVariable Long id,
                                                     @RequestBody UserUpdateRequestDto requestDto) {
-        return ResponseEntity.ok(librarianService.update(id, requestDto));
+        LibrarianProfile updatedLibrarian = librarianService.update(id, requestDto);
+        LibrarianResponseDto responseDto = librarianProfileMapper.toResponseDto(updatedLibrarian);
+        return ResponseEntity.ok(responseDto);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public ResponseEntity<LibrarianResponseDto> findById(@PathVariable Long id) {
-        LibrarianResponseDto foundMember = librarianService.findById(id);
-        return ResponseEntity.ok(foundMember);
+        LibrarianProfile foundMember = librarianService.findById(id);
+        LibrarianResponseDto  responseDto = librarianProfileMapper.toResponseDto(foundMember);
+        return ResponseEntity.ok(responseDto);
     }
 
     @DeleteMapping("/{id}")

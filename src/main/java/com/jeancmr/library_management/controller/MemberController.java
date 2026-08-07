@@ -1,6 +1,9 @@
 package com.jeancmr.library_management.controller;
 
+import com.jeancmr.library_management.domain.MemberProfile;
 import com.jeancmr.library_management.dto.MemberResponseDto;
+import com.jeancmr.library_management.mapper.MemberProfileMapper;
+import com.jeancmr.library_management.mapper.UserMapper;
 import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.service.interfaces.IMemberService;
@@ -18,32 +21,39 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private final IMemberService  memberService;
+    private final IMemberService memberService;
+    private final MemberProfileMapper  memberProfileMapper;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public List<MemberResponseDto> findAll() {
-        return memberService.findAll();
+        return memberService.findAll().stream()
+                .map(memberProfileMapper::toResponseDto).toList();
     }
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public ResponseEntity<MemberResponseDto> save(@Valid @RequestBody UserCreateRequestDto requestDto) {
-        return new ResponseEntity<>(memberService.save(requestDto), HttpStatus.CREATED);
+        MemberProfile savedMember = memberService.save(requestDto);
+        MemberResponseDto responseDto = memberProfileMapper.toResponseDto(savedMember);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public ResponseEntity<MemberResponseDto> update(@PathVariable Long id,
                                                      @RequestBody UserUpdateRequestDto requestDto) {
-        return ResponseEntity.ok(memberService.update(id, requestDto));
+        MemberProfile updatedMember = memberService.update(id, requestDto);
+        MemberResponseDto responseDto = memberProfileMapper.toResponseDto(updatedMember);
+        return ResponseEntity.ok(responseDto);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public ResponseEntity<MemberResponseDto> findById(@PathVariable Long id) {
-        MemberResponseDto foundMember = memberService.findById(id);
-        return ResponseEntity.ok(foundMember);
+        MemberProfile foundMember =  memberService.findById(id);
+        MemberResponseDto responseDto =  memberProfileMapper.toResponseDto(foundMember);
+        return ResponseEntity.ok(responseDto);
     }
 
     @DeleteMapping("/{id}")

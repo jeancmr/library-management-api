@@ -2,7 +2,6 @@ package com.jeancmr.library_management.service;
 
 import com.jeancmr.library_management.domain.LibrarianProfile;
 import com.jeancmr.library_management.domain.User;
-import com.jeancmr.library_management.dto.LibrarianResponseDto;
 import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;
@@ -35,22 +34,20 @@ public class LibrarianService implements ILibrarianService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<LibrarianResponseDto> findAll() {
-        return librarianRepository.findAll().stream()
-                .map(librarianMapper::toResponseDto).toList();
+    public List<LibrarianProfile> findAll() {
+        return librarianRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public LibrarianResponseDto findById(Long id) {
-        LibrarianProfile foundLibrarian = librarianRepository.findById(id).
+    public LibrarianProfile findById(Long id) {
+        return  librarianRepository.findById(id).
                 orElseThrow(()-> new ResourceNotFoundException("Librarian", "ID", id));
-        return librarianMapper.toResponseDto(foundLibrarian);
     }
 
     @Override
     @Transactional
-    public LibrarianResponseDto save(UserCreateRequestDto requestDto) {
+    public LibrarianProfile save(UserCreateRequestDto requestDto) {
         if(userRepository.existsByEmail(requestDto.getEmail())) {
             throw new ResourceAlreadyExistsException("User", "email", requestDto.getEmail());
         }
@@ -66,12 +63,12 @@ public class LibrarianService implements ILibrarianService {
 
         User savedUser = userRepository.save(user);
 
-        return librarianMapper.toResponseDto(savedUser.getLibrarianProfile());
+        return savedUser.getLibrarianProfile();
     }
 
     @Override
     @Transactional
-    public LibrarianResponseDto update(Long id, UserUpdateRequestDto userUpdateRequestDto) {
+    public LibrarianProfile update(Long id, UserUpdateRequestDto userUpdateRequestDto) {
         User existingUser = librarianRepository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("Librarian", "ID", id))
                         .getUser();
@@ -81,7 +78,7 @@ public class LibrarianService implements ILibrarianService {
 
         User updatedUser = userRepository.save(existingUser);
 
-        return librarianMapper.toResponseDto(updatedUser.getLibrarianProfile());
+        return updatedUser.getLibrarianProfile();
     }
 
     @Override

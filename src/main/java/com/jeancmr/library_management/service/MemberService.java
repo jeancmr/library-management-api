@@ -2,7 +2,6 @@ package com.jeancmr.library_management.service;
 
 import com.jeancmr.library_management.domain.MemberProfile;
 import com.jeancmr.library_management.domain.User;
-import com.jeancmr.library_management.dto.MemberResponseDto;
 import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;
@@ -35,27 +34,21 @@ public class MemberService implements IMemberService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MemberResponseDto> findAll() {
+    public List<MemberProfile> findAll() {
 
-        return memberRepository.findAll()
-                .stream()
-                .map(memberMapper::toResponseDto)
-                .toList();
+        return memberRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public MemberResponseDto findById(Long id) {
-        MemberProfile memberFound = memberRepository.findById(id).orElseThrow(()->
+    public MemberProfile findById(Long id) {
+        return memberRepository.findById(id).orElseThrow(()->
                 new ResourceNotFoundException("Member",  "ID", id));
-
-        return memberMapper.toResponseDto(memberFound);
-
     }
 
     @Override
     @Transactional
-    public MemberResponseDto save(UserCreateRequestDto request) {
+    public MemberProfile save(UserCreateRequestDto request) {
         if(userRepository.existsByEmail(request.getEmail())) {
             throw new ResourceAlreadyExistsException("User", "email", request.getEmail());
         }
@@ -73,12 +66,12 @@ public class MemberService implements IMemberService {
 
         User savedUser = userRepository.save(user);
 
-        return memberMapper.toResponseDto(savedUser.getMemberProfile());
+        return savedUser.getMemberProfile();
     }
 
     @Override
     @Transactional
-    public MemberResponseDto update(Long id, UserUpdateRequestDto request) {
+    public MemberProfile update(Long id, UserUpdateRequestDto request) {
         User existingUser = memberRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Member", "ID", id)).getUser();
 
@@ -87,7 +80,7 @@ public class MemberService implements IMemberService {
 
         User updatedUser = userRepository.save(existingUser);
 
-        return memberMapper.toResponseDto(updatedUser.getMemberProfile());
+        return updatedUser.getMemberProfile();
     }
 
     @Override
