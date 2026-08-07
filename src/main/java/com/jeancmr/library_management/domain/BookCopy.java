@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "BookCopies")
 @Getter
@@ -25,4 +28,7 @@ public class BookCopy {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     private Book book;
+
+    @OneToMany(mappedBy = "bookCopy")
+    private Set<Loan> loans = new HashSet<>();
 }

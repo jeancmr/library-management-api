@@ -12,7 +12,7 @@ public interface BookMapper {
     @Mapping(target = "publisher", ignore = true)
     @Mapping(target = "authors", ignore = true)
     @Mapping(target = "categories", ignore = true)
-    @Mapping(target = "copyBooks", ignore = true)
+    @Mapping(target = "copies", ignore = true)
     Book toEntity(BookRequestDto dto);
 
     @Mapping(target = "publisher", source = "publisher")

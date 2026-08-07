@@ -2,11 +2,19 @@ package com.jeancmr.library_management.domain;
 
 import com.jeancmr.library_management.enums.LoanStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "loans")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +28,6 @@ public class Loan {
 
     private LocalDate returnDate;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private LoanStatus status;
 
@@ -34,5 +41,5 @@ public class Loan {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_copy_id", nullable = false)
-    private BookCopy loanedBook;
+    private BookCopy bookCopy;
 }

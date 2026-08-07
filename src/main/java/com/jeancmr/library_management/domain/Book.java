@@ -51,7 +51,7 @@ public class Book {
     private Set<Category> categories =  new HashSet<>();
 
     @OneToMany(mappedBy = "book")
-    private Set<BookCopy> copyBooks = new HashSet<>();
+    private Set<BookCopy> copies = new HashSet<>();
 
     public void addAuthor(Author author){
         authors.add(author);

@@ -13,5 +13,5 @@ import lombok.Setter;
 public class BookCopyResponseDto {
     private Long id;
     private BookCopyStatus status;
-    private Long bookId;
+    private BookResponseDto book;
 }

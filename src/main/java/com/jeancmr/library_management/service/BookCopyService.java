@@ -7,6 +7,7 @@ import com.jeancmr.library_management.dto.BookCopyResponseDto;
 import com.jeancmr.library_management.dto.BookCopyStatusRequestDto;
 import com.jeancmr.library_management.enums.BookCopyStatus;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
+import com.jeancmr.library_management.mapper.BookMapper;
 import com.jeancmr.library_management.repository.BookCopyRepository;
 import com.jeancmr.library_management.repository.BookRepository;
 import com.jeancmr.library_management.service.interfaces.IBookCopyService;
@@ -22,6 +23,7 @@ public class BookCopyService implements IBookCopyService {
 
     private final BookCopyRepository bookCopyRepository;
     private final BookRepository      bookRepository;
+    private final BookMapper           bookMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -82,7 +84,7 @@ public class BookCopyService implements IBookCopyService {
         BookCopyResponseDto responseDto = new BookCopyResponseDto();
         responseDto.setId(bookCopy.getId());
         responseDto.setStatus(bookCopy.getStatus());
-        responseDto.setBookId(bookCopy.getBook().getId());
+        responseDto.setBook(bookMapper.toResponseDto(bookCopy.getBook()));
 
         return responseDto;
     }
