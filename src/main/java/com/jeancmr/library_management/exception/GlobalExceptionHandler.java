@@ -66,6 +66,17 @@ public class GlobalExceptionHandler {
                 .build();
     }
 
+    @ExceptionHandler(BookCopyNotAvailableException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleBookCopyNotAvailableException(BookCopyNotAvailableException ex){
+        return ErrorResponse.builder()
+                .error("Conflict")
+                .status(HttpStatus.CONFLICT.value())
+                .message(ex.getMessage())
+                .timestamp(LocalDate.now())
+                .build();
+    }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleHttpMessageNotReadable(

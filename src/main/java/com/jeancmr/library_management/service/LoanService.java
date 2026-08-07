@@ -8,6 +8,7 @@ import com.jeancmr.library_management.domain.MemberProfile;
 import com.jeancmr.library_management.dto.LoanRequestDto;
 import com.jeancmr.library_management.enums.BookCopyStatus;
 import com.jeancmr.library_management.enums.LoanStatus;
+import com.jeancmr.library_management.exception.BookCopyNotAvailableException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.LoanMapper;
 import com.jeancmr.library_management.repository.*;
@@ -53,16 +54,17 @@ public class LoanService implements ILoanService {
                 .orElseThrow(() -> new ResourceNotFoundException("Member",  "ID", loanRequestDto.getMemberId()));
         LibrarianProfile librarian = librarianRepository.findById(loanRequestDto.getLibrarianId())
                 .orElseThrow(() -> new ResourceNotFoundException("Librarian", "ID", loanRequestDto.getLibrarianId()));
-        BookCopy bookCopy = bookCopyRepository.findById(loanRequestDto.getBookCopyId())
-                .orElseThrow(() -> new ResourceNotFoundException("Book Copy", "ID", loanRequestDto.getBookCopyId()));
+        BookCopy bookCopy = bookCopyService.findById(loanRequestDto.getBookCopyId());
+
+        if (bookCopy.getStatus() != BookCopyStatus.AVAILABLE) {
+            throw new BookCopyNotAvailableException(bookCopy.getId());
+        }
 
         bookCopy.setStatus(BookCopyStatus.LOANED);
 
-        BookCopy bookCopyUpdated =  bookCopyRepository.save(bookCopy);
-
         newLoan.setMember(member);
         newLoan.setLibrarian(librarian);
-        newLoan.setBookCopy(bookCopyUpdated);
+        newLoan.setBookCopy(bookCopy);
 
         newLoan.setLoanDate(LocalDate.now());
         newLoan.setStatus(LoanStatus.ACTIVE);
