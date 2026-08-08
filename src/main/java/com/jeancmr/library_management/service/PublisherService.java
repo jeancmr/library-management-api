@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.service;
 
 import com.jeancmr.library_management.domain.Publisher;
-import com.jeancmr.library_management.dto.PublisherDto;
+import com.jeancmr.library_management.dto.Publisher.PublisherDto;
 import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.PublisherMapper;

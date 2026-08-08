@@ -1,4 +1,4 @@
-package com.jeancmr.library_management.dto;
+package com.jeancmr.library_management.dto.Author;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

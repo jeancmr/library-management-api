@@ -1,6 +1,6 @@
 package com.jeancmr.library_management.service.interfaces;
 
-import com.jeancmr.library_management.dto.CategoryDto;
+import com.jeancmr.library_management.dto.Category.CategoryDto;
 
 import java.util.List;
 

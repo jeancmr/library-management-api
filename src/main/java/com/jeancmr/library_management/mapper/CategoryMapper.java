@@ -2,7 +2,7 @@ package com.jeancmr.library_management.mapper;
 
 
 import com.jeancmr.library_management.domain.Category;
-import com.jeancmr.library_management.dto.CategoryDto;
+import com.jeancmr.library_management.dto.Category.CategoryDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 

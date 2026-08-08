@@ -1,9 +1,8 @@
 package com.jeancmr.library_management.controller;
 
 import com.jeancmr.library_management.domain.MemberProfile;
-import com.jeancmr.library_management.dto.MemberResponseDto;
+import com.jeancmr.library_management.dto.Member.MemberResponseDto;
 import com.jeancmr.library_management.mapper.MemberProfileMapper;
-import com.jeancmr.library_management.mapper.UserMapper;
 import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;
 import com.jeancmr.library_management.service.interfaces.IMemberService;

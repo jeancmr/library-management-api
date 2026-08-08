@@ -4,7 +4,7 @@ import com.jeancmr.library_management.domain.Author;
 import com.jeancmr.library_management.domain.Book;
 import com.jeancmr.library_management.domain.Category;
 import com.jeancmr.library_management.domain.Publisher;
-import com.jeancmr.library_management.dto.BookRequestDto;
+import com.jeancmr.library_management.dto.Book.BookRequestDto;
 import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.BookMapper;

@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.service;
 
 import com.jeancmr.library_management.domain.Author;
-import com.jeancmr.library_management.dto.AuthorDto;
+import com.jeancmr.library_management.dto.Author.AuthorDto;
 import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.AuthorMapper;

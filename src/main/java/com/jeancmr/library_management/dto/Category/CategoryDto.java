@@ -1,4 +1,4 @@
-package com.jeancmr.library_management.dto;
+package com.jeancmr.library_management.dto.Category;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PublisherDto {
+public class CategoryDto {
     private Long id;
     private String name;
+    private String description;
 }

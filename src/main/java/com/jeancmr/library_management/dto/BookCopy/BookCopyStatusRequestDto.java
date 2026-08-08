@@ -1,4 +1,4 @@
-package com.jeancmr.library_management.dto;
+package com.jeancmr.library_management.dto.BookCopy;
 
 import com.jeancmr.library_management.enums.BookCopyStatus;
 import jakarta.validation.constraints.NotBlank;

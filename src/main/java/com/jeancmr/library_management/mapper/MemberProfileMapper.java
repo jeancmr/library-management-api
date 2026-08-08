@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.mapper;
 
 import com.jeancmr.library_management.domain.MemberProfile;
-import com.jeancmr.library_management.dto.MemberResponseDto;
+import com.jeancmr.library_management.dto.Member.MemberResponseDto;
 import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;
 import org.mapstruct.Mapper;

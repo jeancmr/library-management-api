@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.controller;
 
-import com.jeancmr.library_management.dto.LoanRequestDto;
-import com.jeancmr.library_management.dto.LoanResponseDto;
+import com.jeancmr.library_management.dto.Loan.LoanRequestDto;
+import com.jeancmr.library_management.dto.Loan.LoanResponseDto;
 import com.jeancmr.library_management.mapper.LoanMapper;
 import com.jeancmr.library_management.service.interfaces.ILoanService;
 import jakarta.validation.Valid;

@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.service;
 
 import com.jeancmr.library_management.domain.Category;
-import com.jeancmr.library_management.dto.CategoryDto;
+import com.jeancmr.library_management.dto.Category.CategoryDto;
 import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.CategoryMapper;

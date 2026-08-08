@@ -1,8 +1,8 @@
 package com.jeancmr.library_management.mapper;
 
 import com.jeancmr.library_management.domain.Book;
-import com.jeancmr.library_management.dto.BookRequestDto;
-import com.jeancmr.library_management.dto.BookResponseDto;
+import com.jeancmr.library_management.dto.Book.BookRequestDto;
+import com.jeancmr.library_management.dto.Book.BookResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

@@ -2,8 +2,8 @@ package com.jeancmr.library_management.service;
 
 import com.jeancmr.library_management.domain.Book;
 import com.jeancmr.library_management.domain.BookCopy;
-import com.jeancmr.library_management.dto.BookCopyRequestDto;
-import com.jeancmr.library_management.dto.BookCopyStatusRequestDto;
+import com.jeancmr.library_management.dto.BookCopy.BookCopyRequestDto;
+import com.jeancmr.library_management.dto.BookCopy.BookCopyStatusRequestDto;
 import com.jeancmr.library_management.enums.BookCopyStatus;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.repository.BookCopyRepository;

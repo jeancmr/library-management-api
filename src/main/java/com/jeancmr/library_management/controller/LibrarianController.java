@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.controller;
 
 import com.jeancmr.library_management.domain.LibrarianProfile;
-import com.jeancmr.library_management.dto.LibrarianResponseDto;
+import com.jeancmr.library_management.dto.Librarian.LibrarianResponseDto;
 import com.jeancmr.library_management.mapper.LibrarianProfileMapper;
 import com.jeancmr.library_management.security.dto.UserCreateRequestDto;
 import com.jeancmr.library_management.security.dto.UserUpdateRequestDto;

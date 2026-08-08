@@ -1,6 +1,6 @@
 package com.jeancmr.library_management.controller;
 
-import com.jeancmr.library_management.dto.AuthorDto;
+import com.jeancmr.library_management.dto.Author.AuthorDto;
 import com.jeancmr.library_management.service.interfaces.IAuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,10 +1,5 @@
-package com.jeancmr.library_management.dto;
+package com.jeancmr.library_management.dto.Book;
 
-import com.jeancmr.library_management.domain.Author;
-import com.jeancmr.library_management.domain.BookCopy;
-import com.jeancmr.library_management.domain.Category;
-import com.jeancmr.library_management.domain.Publisher;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -13,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter @Setter

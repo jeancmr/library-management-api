@@ -1,6 +1,7 @@
-package com.jeancmr.library_management.dto;
+package com.jeancmr.library_management.dto.BookCopy;
 
 import com.jeancmr.library_management.enums.BookCopyStatus;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookCopyResponseDto {
-    private Long id;
+public class BookCopyRequestDto {
+    @NotNull(message = "bookId cannot be null")
+    private Long bookId;
+
     private BookCopyStatus status;
-    private BookResponseDto book;
 }

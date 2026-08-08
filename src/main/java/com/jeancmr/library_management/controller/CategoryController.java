@@ -1,6 +1,6 @@
 package com.jeancmr.library_management.controller;
 
-import com.jeancmr.library_management.dto.CategoryDto;
+import com.jeancmr.library_management.dto.Category.CategoryDto;
 import com.jeancmr.library_management.service.interfaces.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

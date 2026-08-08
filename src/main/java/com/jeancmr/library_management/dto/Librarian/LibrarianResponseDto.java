@@ -1,4 +1,4 @@
-package com.jeancmr.library_management.dto;
+package com.jeancmr.library_management.dto.Librarian;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter @Setter
 @AllArgsConstructor
-public class MemberResponseDto {
+public class LibrarianResponseDto {
     private Long id;
     private String firstName;
     private String secondName;
@@ -16,6 +16,6 @@ public class MemberResponseDto {
     private String secondSurname;
     private String email;
     private LocalDate birthDate;
-    private LocalDate membershipDate;
-    private int borrowLimit;
+    private LocalDate hiredDate;
+
 }

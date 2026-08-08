@@ -1,7 +1,6 @@
 package com.jeancmr.library_management.repository;
 
 import com.jeancmr.library_management.domain.BookCopy;
-import com.jeancmr.library_management.dto.BookCopyResponseDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

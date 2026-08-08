@@ -1,8 +1,8 @@
 package com.jeancmr.library_management.service.interfaces;
 
 import com.jeancmr.library_management.domain.BookCopy;
-import com.jeancmr.library_management.dto.BookCopyRequestDto;
-import com.jeancmr.library_management.dto.BookCopyStatusRequestDto;
+import com.jeancmr.library_management.dto.BookCopy.BookCopyRequestDto;
+import com.jeancmr.library_management.dto.BookCopy.BookCopyStatusRequestDto;
 
 import java.util.List;
 

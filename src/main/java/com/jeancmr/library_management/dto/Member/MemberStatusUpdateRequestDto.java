@@ -1,4 +1,4 @@
-package com.jeancmr.library_management.dto;
+package com.jeancmr.library_management.dto.Member;
 
 import com.jeancmr.library_management.enums.MemberStatus;
 

@@ -1,8 +1,8 @@
 package com.jeancmr.library_management.mapper;
 
 import com.jeancmr.library_management.domain.Loan;
-import com.jeancmr.library_management.dto.LoanRequestDto;
-import com.jeancmr.library_management.dto.LoanResponseDto;
+import com.jeancmr.library_management.dto.Loan.LoanRequestDto;
+import com.jeancmr.library_management.dto.Loan.LoanResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

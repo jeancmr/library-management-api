@@ -1,8 +1,8 @@
 package com.jeancmr.library_management.controller;
 
 import com.jeancmr.library_management.domain.Book;
-import com.jeancmr.library_management.dto.BookRequestDto;
-import com.jeancmr.library_management.dto.BookResponseDto;
+import com.jeancmr.library_management.dto.Book.BookRequestDto;
+import com.jeancmr.library_management.dto.Book.BookResponseDto;
 import com.jeancmr.library_management.mapper.BookMapper;
 import com.jeancmr.library_management.service.interfaces.IBookService;
 import jakarta.validation.Valid;

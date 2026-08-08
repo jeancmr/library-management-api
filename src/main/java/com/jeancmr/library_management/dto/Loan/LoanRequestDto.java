@@ -1,6 +1,5 @@
-package com.jeancmr.library_management.dto;
+package com.jeancmr.library_management.dto.Loan;
 
-import com.jeancmr.library_management.enums.LoanStatus;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

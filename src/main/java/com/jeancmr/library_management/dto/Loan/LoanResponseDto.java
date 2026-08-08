@@ -1,5 +1,8 @@
-package com.jeancmr.library_management.dto;
+package com.jeancmr.library_management.dto.Loan;
 
+import com.jeancmr.library_management.dto.BookCopy.BookCopyResponseDto;
+import com.jeancmr.library_management.dto.Librarian.LibrarianResponseDto;
+import com.jeancmr.library_management.dto.Member.MemberResponseDto;
 import com.jeancmr.library_management.enums.LoanStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.service.interfaces;
 
 import com.jeancmr.library_management.domain.Book;
-import com.jeancmr.library_management.dto.BookRequestDto;
+import com.jeancmr.library_management.dto.Book.BookRequestDto;
 
 import java.util.List;
 

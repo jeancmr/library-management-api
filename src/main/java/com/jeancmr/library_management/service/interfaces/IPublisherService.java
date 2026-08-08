@@ -1,7 +1,7 @@
 package com.jeancmr.library_management.service.interfaces;
 
 import com.jeancmr.library_management.domain.Publisher;
-import com.jeancmr.library_management.dto.PublisherDto;
+import com.jeancmr.library_management.dto.Publisher.PublisherDto;
 
 import java.util.List;
 

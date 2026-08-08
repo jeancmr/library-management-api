@@ -5,7 +5,7 @@ import com.jeancmr.library_management.domain.BookCopy;
 import com.jeancmr.library_management.domain.LibrarianProfile;
 import com.jeancmr.library_management.domain.Loan;
 import com.jeancmr.library_management.domain.MemberProfile;
-import com.jeancmr.library_management.dto.LoanRequestDto;
+import com.jeancmr.library_management.dto.Loan.LoanRequestDto;
 import com.jeancmr.library_management.enums.BookCopyStatus;
 import com.jeancmr.library_management.enums.LoanStatus;
 import com.jeancmr.library_management.exception.BookCopyNotAvailableException;

@@ -1,6 +1,6 @@
 package com.jeancmr.library_management.service.interfaces;
 
-import com.jeancmr.library_management.dto.AuthorDto;
+import com.jeancmr.library_management.dto.Author.AuthorDto;
 
 import java.util.List;
 

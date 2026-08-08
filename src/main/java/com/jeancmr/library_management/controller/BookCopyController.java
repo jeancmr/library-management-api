@@ -1,9 +1,9 @@
 package com.jeancmr.library_management.controller;
 
 import com.jeancmr.library_management.domain.BookCopy;
-import com.jeancmr.library_management.dto.BookCopyRequestDto;
-import com.jeancmr.library_management.dto.BookCopyResponseDto;
-import com.jeancmr.library_management.dto.BookCopyStatusRequestDto;
+import com.jeancmr.library_management.dto.BookCopy.BookCopyRequestDto;
+import com.jeancmr.library_management.dto.BookCopy.BookCopyResponseDto;
+import com.jeancmr.library_management.dto.BookCopy.BookCopyStatusRequestDto;
 import com.jeancmr.library_management.mapper.BookMapper;
 import com.jeancmr.library_management.service.interfaces.IBookCopyService;
 import jakarta.validation.Valid;
