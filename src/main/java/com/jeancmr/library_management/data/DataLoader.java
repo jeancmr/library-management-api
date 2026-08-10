@@ -1,8 +1,10 @@
 package com.jeancmr.library_management.data;
 
 import com.jeancmr.library_management.domain.*;
+import com.jeancmr.library_management.enums.BookCopyStatus;
 import com.jeancmr.library_management.enums.MemberStatus;
 import com.jeancmr.library_management.enums.Role;
+import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -24,6 +26,7 @@ public class DataLoader implements CommandLineRunner {
     private final PublisherRepository publisherRepository;
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final BookCopyRepository bookCopyRepository;
 
     @Override
     @Transactional
@@ -160,5 +163,38 @@ public class DataLoader implements CommandLineRunner {
 
         bookRepository.save(book3);
         System.out.println("Book " + book3.getTitle() + " created.");
+
+        // --- BOOK COPIES ---
+        Book bookForCopy1 = bookRepository.findById(1L)
+                .orElseThrow(() -> new ResourceNotFoundException("Book", "ID", 1L));
+
+        BookCopy bookCopy1 = new BookCopy();
+        bookCopy1.setBook(bookForCopy1);
+        bookCopy1.setStatus(BookCopyStatus.AVAILABLE);
+
+        bookCopyRepository.save(bookCopy1);
+        System.out.println("Book Copy #1" + bookForCopy1.getTitle() + " created.");
+
+        Book bookForCopy2 = bookRepository.findById(1L)
+                .orElseThrow(() -> new ResourceNotFoundException("Book", "ID", 1L));
+
+        BookCopy bookCopy2 = new BookCopy();
+        bookCopy2.setBook(bookForCopy2);
+        bookCopy2.setStatus(BookCopyStatus.AVAILABLE);
+
+        bookCopyRepository.save(bookCopy2);
+        System.out.println("Book Copy #2" + bookForCopy2.getTitle() + " created.");
+
+        Book bookForCopy3 = bookRepository.findById(2L)
+                .orElseThrow(() -> new ResourceNotFoundException("Book", "ID", 2L));
+
+        BookCopy bookCopy3 = new BookCopy();
+        bookCopy3.setBook(bookForCopy3);
+        bookCopy3.setStatus(BookCopyStatus.AVAILABLE);
+
+        bookCopyRepository.save(bookCopy3);
+        System.out.println("Book Copy #1" + bookForCopy3.getTitle() + " created.");
+
+
     }
 }
