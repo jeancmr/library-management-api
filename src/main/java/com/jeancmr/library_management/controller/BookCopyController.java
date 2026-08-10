@@ -3,6 +3,7 @@ package com.jeancmr.library_management.controller;
 import com.jeancmr.library_management.domain.BookCopy;
 import com.jeancmr.library_management.dto.BookCopy.BookCopyRequestDto;
 import com.jeancmr.library_management.dto.BookCopy.BookCopyResponseDto;
+import com.jeancmr.library_management.dto.BookCopy.BookCopyResponseSummaryDto;
 import com.jeancmr.library_management.dto.BookCopy.BookCopyStatusRequestDto;
 import com.jeancmr.library_management.mapper.BookMapper;
 import com.jeancmr.library_management.service.interfaces.IBookCopyService;
@@ -25,18 +26,18 @@ public class BookCopyController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
-    public ResponseEntity<List<BookCopyResponseDto>> findAll() {
-        List<BookCopyResponseDto> bookCopyList = bookCopyService.findAll()
+    public ResponseEntity<List<BookCopyResponseSummaryDto>> findAll() {
+        List<BookCopyResponseSummaryDto> bookCopyList = bookCopyService.findAll()
                 .stream()
-                .map(this::toResponseDto).toList();
+                .map(this::toResponseSummaryDto).toList();
         return ResponseEntity.ok(bookCopyList);
     }
 
     @GetMapping("/{bookId}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
-    public ResponseEntity<List<BookCopyResponseDto>> findByBookId(@PathVariable Long bookId) {
-        List<BookCopyResponseDto> bookCopyList = bookCopyService.findByBookId(bookId)
-                .stream().map(this::toResponseDto).toList();
+    public ResponseEntity<List<BookCopyResponseSummaryDto>> findByBookId(@PathVariable Long bookId) {
+        List<BookCopyResponseSummaryDto> bookCopyList = bookCopyService.findByBookId(bookId)
+                .stream().map(this::toResponseSummaryDto).toList();
         return ResponseEntity.ok(bookCopyList);
     }
 
@@ -68,6 +69,16 @@ public class BookCopyController {
         responseDto.setId(bookCopy.getId());
         responseDto.setStatus(bookCopy.getStatus());
         responseDto.setBook(bookMapper.toResponseDto(bookCopy.getBook()));
+
+        return responseDto;
+    }
+
+    private BookCopyResponseSummaryDto toResponseSummaryDto(BookCopy bookCopy) {
+        BookCopyResponseSummaryDto responseDto = new BookCopyResponseSummaryDto();
+        responseDto.setId(bookCopy.getId());
+        responseDto.setStatus(bookCopy.getStatus());
+        responseDto.setBookId(bookCopy.getBook().getId());
+        responseDto.setBookTitle(bookCopy.getBook().getTitle());
 
         return responseDto;
     }
