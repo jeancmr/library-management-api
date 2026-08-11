@@ -3,6 +3,7 @@ package com.jeancmr.library_management.mapper;
 import com.jeancmr.library_management.domain.Book;
 import com.jeancmr.library_management.dto.Book.BookRequestDto;
 import com.jeancmr.library_management.dto.Book.BookResponseDto;
+import com.jeancmr.library_management.dto.Book.BookResponseSummaryDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -19,4 +20,6 @@ public interface BookMapper {
     @Mapping(target = "authors", source = "authors")
     @Mapping(target = "categories", source = "categories")
     BookResponseDto toResponseDto(Book book);
+
+    BookResponseSummaryDto toResponseSummaryDto(Book book);
 }

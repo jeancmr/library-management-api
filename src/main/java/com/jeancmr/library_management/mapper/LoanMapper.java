@@ -3,6 +3,7 @@ package com.jeancmr.library_management.mapper;
 import com.jeancmr.library_management.domain.Loan;
 import com.jeancmr.library_management.dto.Loan.LoanRequestDto;
 import com.jeancmr.library_management.dto.Loan.LoanResponseDto;
+import com.jeancmr.library_management.dto.Loan.LoanResponseSummaryDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -21,4 +22,10 @@ public interface LoanMapper {
 
     @Mapping(target = "bookCopy", source = "bookCopy")
     LoanResponseDto toDto(Loan loan);
+
+    @Mapping(target = "member", source = "member.user")
+    @Mapping(target = "librarian", source = "librarian.user")
+    @Mapping(target = "bookCopy", source = "bookCopy")
+    @Mapping(target = "bookCopy.originBook", source = "bookCopy.book")
+    LoanResponseSummaryDto toSummaryDto(Loan loan);
 }

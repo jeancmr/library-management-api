@@ -77,8 +77,7 @@ public class BookCopyController {
         BookCopyResponseSummaryDto responseDto = new BookCopyResponseSummaryDto();
         responseDto.setId(bookCopy.getId());
         responseDto.setStatus(bookCopy.getStatus());
-        responseDto.setBookId(bookCopy.getBook().getId());
-        responseDto.setBookTitle(bookCopy.getBook().getTitle());
+        responseDto.setOriginBook(bookMapper.toResponseSummaryDto(bookCopy.getBook()));
 
         return responseDto;
     }

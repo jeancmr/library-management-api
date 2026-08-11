@@ -2,6 +2,7 @@ package com.jeancmr.library_management.controller;
 
 import com.jeancmr.library_management.dto.Loan.LoanRequestDto;
 import com.jeancmr.library_management.dto.Loan.LoanResponseDto;
+import com.jeancmr.library_management.dto.Loan.LoanResponseSummaryDto;
 import com.jeancmr.library_management.mapper.LoanMapper;
 import com.jeancmr.library_management.service.interfaces.ILoanService;
 import jakarta.validation.Valid;
@@ -20,9 +21,9 @@ public class LoanController {
     private final LoanMapper loanMapper;
 
     @GetMapping
-    public ResponseEntity<List<LoanResponseDto>> getAllLoans() {
-        List<LoanResponseDto> loans = loanService.findAll()
-                .stream().map(loanMapper::toDto).toList();
+    public ResponseEntity<List<LoanResponseSummaryDto>> getAllLoans() {
+        List<LoanResponseSummaryDto> loans = loanService.findAll()
+                .stream().map(loanMapper::toSummaryDto).toList();
         return ResponseEntity.ok(loans);
     }
 
@@ -33,9 +34,9 @@ public class LoanController {
     }
 
     @GetMapping("/book/{memberId}")
-    public ResponseEntity<List<LoanResponseDto>> getLoansByMemberId(@PathVariable Long memberId){
-        List<LoanResponseDto> loansByMember = loanService.findByMemberId(memberId)
-                .stream().map(loanMapper::toDto).toList();
+    public ResponseEntity<List<LoanResponseSummaryDto>> getLoansByMemberId(@PathVariable Long memberId){
+        List<LoanResponseSummaryDto> loansByMember = loanService.findByMemberId(memberId)
+                .stream().map(loanMapper::toSummaryDto).toList();
         return ResponseEntity.ok(loansByMember);
     }
 

@@ -1,5 +1,6 @@
 package com.jeancmr.library_management.dto.BookCopy;
 
+import com.jeancmr.library_management.dto.Book.BookResponseSummaryDto;
 import com.jeancmr.library_management.enums.BookCopyStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,5 @@ import lombok.Setter;
 public class BookCopyResponseSummaryDto {
     private Long id;
     private BookCopyStatus status;
-    private Long bookId;
-    private String bookTitle;
+    private BookResponseSummaryDto  originBook;
 }
