@@ -11,7 +11,9 @@ import com.jeancmr.library_management.mapper.BookMapper;
 import com.jeancmr.library_management.repository.AuthorRepository;
 import com.jeancmr.library_management.repository.BookRepository;
 import com.jeancmr.library_management.repository.CategoryRepository;
+import com.jeancmr.library_management.service.interfaces.IAuthorService;
 import com.jeancmr.library_management.service.interfaces.IBookService;
+import com.jeancmr.library_management.service.interfaces.ICategoryService;
 import com.jeancmr.library_management.service.interfaces.IPublisherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,11 +27,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BookService implements IBookService {
 
-    private final BookRepository bookRepository;
-    private final BookMapper  bookMapper;
+    private final BookRepository    bookRepository;
+    private final BookMapper        bookMapper;
     private final IPublisherService publisherService;
-    private final AuthorRepository authorRepository;
-    private final CategoryRepository  categoryRepository;
+    private final IAuthorService    authorService;
+    private final ICategoryService  categoryService;
 
     @Override
     @Transactional(readOnly = true)
@@ -56,14 +58,10 @@ public class BookService implements IBookService {
 
         Publisher publisher = publisherService.findEntityById(dto.getPublisherId());
 
-        Set<Author> authors = dto.getAuthorsId().stream().map(authorId ->
-                authorRepository.findById(authorId)
-                        .orElseThrow(() -> new ResourceNotFoundException("Author", "ID", authorId)))
+        Set<Author> authors = dto.getAuthorsId().stream().map(authorService::findEntityById)
                 .collect(Collectors.toSet());
 
-        Set<Category> categories = dto.getCategoriesId().stream().map(categoryId ->
-                categoryRepository.findById(categoryId)
-                        .orElseThrow(()-> new ResourceNotFoundException("Category", "ID", categoryId)))
+        Set<Category> categories = dto.getCategoriesId().stream().map(categoryService::findEntityById)
                 .collect(Collectors.toSet());
 
         newBook.setPublisher(publisher);

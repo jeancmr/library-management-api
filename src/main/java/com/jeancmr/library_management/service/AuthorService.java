@@ -67,4 +67,12 @@ public class AuthorService implements IAuthorService {
 
         authorRepository.deleteById(authorToDeleteId);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Author findEntityById(Long id) {
+        return authorRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Author", "ID", id));
+    }
 }

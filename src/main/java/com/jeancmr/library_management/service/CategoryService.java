@@ -67,4 +67,12 @@ public class CategoryService implements ICategoryService {
 
         categoryRepository.deleteById(categoryToDeleteId);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Category findEntityById(Long id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Category", "ID", id));
+    }
 }
