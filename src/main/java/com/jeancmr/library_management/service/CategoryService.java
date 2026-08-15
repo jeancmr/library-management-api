@@ -61,7 +61,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void deleteById(Long id) {
         Long categoryToDeleteId = findById(id).getId();
 
