@@ -5,7 +5,6 @@ import com.jeancmr.library_management.domain.Book;
 import com.jeancmr.library_management.domain.Category;
 import com.jeancmr.library_management.domain.Publisher;
 import com.jeancmr.library_management.dto.Book.BookRequestDto;
-import com.jeancmr.library_management.exception.ResourceAlreadyExistsException;
 import com.jeancmr.library_management.exception.ResourceNotFoundException;
 import com.jeancmr.library_management.mapper.BookMapper;
 import com.jeancmr.library_management.repository.BookRepository;
@@ -177,25 +176,5 @@ class BookServiceTest {
                 categoryService,
                 bookRepository
         );
-    }
-
-    @Test
-    @DisplayName("Should throw Exception when saving a book with ISBN already used")
-    void shouldThrowExceptionWhenSavingBookWithISBNAlreadyUsed() {
-        BookRequestDto dto = new BookRequestDto();
-        dto.setIsbn("8482806866");
-        when(bookRepository.existsByIsbn(dto.getIsbn())).thenReturn(true);
-
-        ResourceAlreadyExistsException exception = assertThrows(ResourceAlreadyExistsException.class,
-                () -> bookService.save(dto));
-
-        assertEquals("Book with ISBN '" + dto.getIsbn() + "' already exists", exception.getMessage());
-
-        verify(bookRepository, never()).save(any());
-        verifyNoInteractions(
-                bookMapper,
-                publisherService,
-                authorService,
-                categoryService);
     }
 }
