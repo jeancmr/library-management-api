@@ -233,13 +233,15 @@ class LoanServiceTest {
         when(bookCopyService.findById(request.getBookCopyId()))
                 .thenReturn(bookCopy);
 
-        assertThrows(
+        BookCopyNotAvailableException exception = assertThrows(
                 BookCopyNotAvailableException.class,
                 () -> loanService.save(request)
         );
 
-        verify(bookCopyService).findById(request.getBookCopyId());
+        assertEquals("Book copy with id " + bookCopy.getId()
+                + " is not available", exception.getMessage());
 
+        verify(bookCopyService).findById(request.getBookCopyId());
         verifyNoInteractions(
                 loanMapper,
                 memberService,
@@ -247,5 +249,4 @@ class LoanServiceTest {
                 loanRepository
         );
     }
-
 }
