@@ -49,15 +49,16 @@ public class LoanService implements ILoanService {
     @Override
     @Transactional
     public Loan save(LoanRequestDto loanRequestDto) {
-        Loan  newLoan = loanMapper.toEntity(loanRequestDto);
-
-        MemberProfile member = memberService.findById(loanRequestDto.getMemberId());
-        LibrarianProfile librarian = librarianService.findById(loanRequestDto.getLibrarianId());
         BookCopy bookCopy = bookCopyService.findById(loanRequestDto.getBookCopyId());
 
         if (bookCopy.getStatus() != BookCopyStatus.AVAILABLE) {
             throw new BookCopyNotAvailableException(bookCopy.getId());
         }
+
+        Loan  newLoan = loanMapper.toEntity(loanRequestDto);
+
+        MemberProfile member = memberService.findById(loanRequestDto.getMemberId());
+        LibrarianProfile librarian = librarianService.findById(loanRequestDto.getLibrarianId());
 
         bookCopy.setStatus(BookCopyStatus.LOANED);
 
