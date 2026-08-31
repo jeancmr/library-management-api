@@ -27,9 +27,6 @@ public class SecurityConfig {
     private final JwtAccessDeniedHandler  jwtAccessDeniedHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Value("${springdoc.swagger-ui.enabled:false}")
-    private boolean swaggerEnabled;
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -43,16 +40,11 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/api/v1/auth/**", "/error").permitAll();
-
-                            if(swaggerEnabled){
-                                auth.requestMatchers(
-                                        "/v3/api-docs/**",
-                                        "/swagger-ui/**",
-                                        "/swagger-ui.html"
-                                ).permitAll();
-                            }
-
-                        auth.anyRequest().authenticated();
+                    auth.requestMatchers(
+                            "/v3/api-docs/**",
+                            "/swagger-ui/**",
+                            "/swagger-ui.html").permitAll();
+                    auth.anyRequest().authenticated();
                         }
                 );
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
