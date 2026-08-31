@@ -7,6 +7,10 @@ import com.jeancmr.library_management.dto.BookCopy.BookCopyResponseSummaryDto;
 import com.jeancmr.library_management.dto.BookCopy.BookCopyStatusRequestDto;
 import com.jeancmr.library_management.mapper.BookMapper;
 import com.jeancmr.library_management.service.interfaces.IBookCopyService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +23,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/book-copies")
+@Tag(name = "Book Copies", description = "Operations related to book copies")
 public class BookCopyController {
 
     private final IBookCopyService bookCopyService;
@@ -26,6 +31,13 @@ public class BookCopyController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
+    @Operation(summary = "Getting all book copies")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Book copies found"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized")
+            }
+    )
     public ResponseEntity<List<BookCopyResponseSummaryDto>> findAll() {
         List<BookCopyResponseSummaryDto> bookCopyList = bookCopyService.findAll()
                 .stream()
@@ -35,6 +47,14 @@ public class BookCopyController {
 
     @GetMapping("/{bookId}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
+    @Operation(summary = "Getting book copies by book id")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Book copies found"),
+                    @ApiResponse(responseCode = "404", description = "Book not found"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized")
+            }
+    )
     public ResponseEntity<List<BookCopyResponseSummaryDto>> findByBookId(@PathVariable Long bookId) {
         List<BookCopyResponseSummaryDto> bookCopyList = bookCopyService.findByBookId(bookId)
                 .stream().map(this::toResponseSummaryDto).toList();
@@ -43,6 +63,14 @@ public class BookCopyController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
+    @Operation(summary = "Save book copy")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "201", description = "Book copy saved successfully"),
+                    @ApiResponse(responseCode = "404", description = "Book not found"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized")
+            }
+    )
     public ResponseEntity<BookCopyResponseDto> create(@Valid @RequestBody BookCopyRequestDto requestDto) {
         BookCopyResponseDto responseDto = toResponseDto(bookCopyService.create(requestDto));
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
@@ -50,6 +78,14 @@ public class BookCopyController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
+    @Operation(summary = "Delete book copy")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "404", description = "Book copy not found"),
+                    @ApiResponse(responseCode = "204", description = "Book copy deleted successfully"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized")
+            }
+    )
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         bookCopyService.delete(id);
         return ResponseEntity.noContent().build();
@@ -57,6 +93,14 @@ public class BookCopyController {
 
     @PatchMapping("/{id}/status")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
+    @Operation(summary = "Update book copy status")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Book copy status updated successfully"),
+                    @ApiResponse(responseCode = "404", description = "Book copy not found"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized")
+            }
+    )
     public ResponseEntity<BookCopyResponseDto> updateStatus(@PathVariable Long id,
                                                             @RequestBody BookCopyStatusRequestDto updateStatusDto)
     {

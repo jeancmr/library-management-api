@@ -8,6 +8,7 @@ import com.jeancmr.library_management.repository.UserRepository;
 import com.jeancmr.library_management.security.dto.JwtAuthResponseDto;
 import com.jeancmr.library_management.security.dto.LoginDto;
 import com.jeancmr.library_management.security.jwt.JwtGenerator;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
+@Tag(name = "Authentication")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
