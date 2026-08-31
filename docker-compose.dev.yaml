@@ -23,8 +23,9 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
 
-      DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME}
+      DB_URL: jdbc:postgresql://${DB_HOST}:5432/${DB_NAME}
 
     depends_on:
       - postgres
